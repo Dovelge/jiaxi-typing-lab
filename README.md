@@ -1,5 +1,7 @@
 # 嘉西英语跟打台 · English Typing Lab
 
+🌐 **在线直接用：https://dovelge.github.io/jiaxi-typing-lab/**
+
 一个把**小学英语课本做成打字游戏**的单文件网页工具。
 
 打开就能用，不用下载、不用注册、不用联网。孩子看到一句英文（或一张图、一段声音），照着把它敲出来；打对了键盘会响、星星会亮，打错了它会记住是哪个字母总出错。
@@ -24,7 +26,7 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/<你的用户名>/jiaxi-typing-lab.git
+git clone https://github.com/Dovelge/jiaxi-typing-lab.git
 cd jiaxi-typing-lab
 ```
 
@@ -34,15 +36,12 @@ cd jiaxi-typing-lab
 
 ### 放到线上
 
-任何静态托管都能跑（GitHub Pages / Vercel / Netlify / 自己的服务器）：
+任何静态托管都能跑（GitHub Pages / Vercel / Netlify / 自己的服务器）。
 
-```bash
-# GitHub Pages
-git push origin main
-# 仓库 Settings → Pages → Source 选 main 分支根目录
-```
+本仓库已开启 **GitHub Pages**：向 `main` 分支推送后，会在一两分钟内自动发布到
+https://dovelge.github.io/jiaxi-typing-lab/
 
-或者本地起一个静态服务：
+想在自己服务器上跑：
 
 ```bash
 python3 -m http.server 8000
