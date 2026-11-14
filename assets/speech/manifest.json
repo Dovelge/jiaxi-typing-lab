@@ -1,0 +1,98 @@
+[
+ {
+  "en": "Why not you?",
+  "zh": "为什么不能是你？",
+  "audio": "assets/speech/aud-01.mp3",
+  "img": "assets/speech/img-01.jpg",
+  "start": 0.0,
+  "end": 2.44
+ },
+ {
+  "en": "You've got the brains,",
+  "zh": "你拥有智慧，",
+  "audio": "assets/speech/aud-02.mp3",
+  "img": "assets/speech/img-02.jpg",
+  "start": 3.32,
+  "end": 4.96
+ },
+ {
+  "en": "you can make decisions,",
+  "zh": "你能自己做决定，",
+  "audio": "assets/speech/aud-03.mp3",
+  "img": "assets/speech/img-03.jpg",
+  "start": 5.26,
+  "end": 6.84
+ },
+ {
+  "en": "you can study the plan,",
+  "zh": "你能研究计划，",
+  "audio": "assets/speech/aud-04.mp3",
+  "img": "assets/speech/img-04.jpg",
+  "start": 7.26,
+  "end": 8.88
+ },
+ {
+  "en": "you can change your life,",
+  "zh": "你能改变自己的人生，",
+  "audio": "assets/speech/aud-05.mp3",
+  "img": "assets/speech/img-05.jpg",
+  "start": 9.22,
+  "end": 11.02
+ },
+ {
+  "en": "you can grow immensely in the next few years,",
+  "zh": "你能在未来几年里飞速成长，",
+  "audio": "assets/speech/aud-06.mp3",
+  "img": "assets/speech/img-06.jpg",
+  "start": 11.1,
+  "end": 14.44
+ },
+ {
+  "en": "you can make your dreams come true,",
+  "zh": "你能让梦想成真，",
+  "audio": "assets/speech/aud-07.mp3",
+  "img": "assets/speech/img-07.jpg",
+  "start": 14.7,
+  "end": 16.42
+ },
+ {
+  "en": "you can build a financial wall around your family,",
+  "zh": "你能为家人筑起一道财务防线，",
+  "audio": "assets/speech/aud-08.mp3",
+  "img": "assets/speech/img-08.jpg",
+  "start": 16.78,
+  "end": 19.06
+ },
+ {
+  "en": "nothing can get through,",
+  "zh": "什么都无法穿透它，",
+  "audio": "assets/speech/aud-09.mp3",
+  "img": "assets/speech/img-09.jpg",
+  "start": 19.04,
+  "end": 20.24
+ },
+ {
+  "en": "you can become healthy,",
+  "zh": "你能变得健康，",
+  "audio": "assets/speech/aud-10.mp3",
+  "img": "assets/speech/img-10.jpg",
+  "start": 20.58,
+  "end": 22.02
+ },
+ {
+  "en": "you can become powerful,",
+  "zh": "你能变得强大，",
+  "audio": "assets/speech/aud-11.mp3",
+  "img": "assets/speech/img-11.jpg",
+  "start": 22.06,
+  "end": 23.16
+ },
+ {
+  "en": "why not you?",
+  "zh": "为什么不能是你？",
+  "audio": "assets/speech/aud-12.mp3",
+  "img": "assets/speech/img-12.jpg",
+  "start": 23.52,
+  "end": 24.56
+ }
+]
