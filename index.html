@@ -155,6 +155,134 @@ ol,ul{list-style:none}
 }
 .update-btn:hover{filter:brightness(1.05)}
 .update-btn:disabled{opacity:.75;cursor:default}
+
+/* ===== 侧栏底部 · 联系/关于入口 ===== */
+.rail-contact{
+  position:sticky;bottom:0;z-index:3;
+  margin:6px -22px calc(-26px - env(safe-area-inset-bottom,0px));
+  padding:16px 22px calc(16px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(180deg,rgba(31,59,51,0) 0%,rgba(31,59,51,.94) 24%,var(--deep) 52%);
+}
+.rc-card{
+  width:100%;display:flex;align-items:center;gap:11px;text-align:left;
+  padding:8px 11px 8px 8px;border-radius:16px;cursor:pointer;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  color:#F4EAD8;font-family:inherit;
+  transition:background .18s,border-color .18s,transform .18s;
+}
+.rc-card:hover{background:rgba(255,255,255,.13);border-color:rgba(242,179,61,.55);transform:translateY(-1px)}
+.rc-card:active{transform:translateY(0)}
+.rc-qr{width:50px;height:50px;flex:0 0 50px;border-radius:9px;background:#fff;padding:3px;object-fit:contain;display:block}
+.rc-text{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.rc-text b{font-size:12.5px;font-weight:800;letter-spacing:.02em;white-space:nowrap}
+.rc-text i{font-style:normal;font-size:10px;color:#9FBDB0;letter-spacing:.02em;line-height:1.35}
+.rc-arrow{width:13px;height:13px;flex:0 0 13px;color:#F2B33D;opacity:.85}
+
+/* ===== 关于嘉西学堂 · 弹窗 ===== */
+.about-modal{
+  position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:18px;
+  background:rgba(31,43,38,.58);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  opacity:0;pointer-events:none;transition:opacity .22s;
+}
+.about-modal.open{opacity:1;pointer-events:auto}
+.about-sheet{
+  width:min(560px,100%);max-height:92vh;overflow:auto;position:relative;
+  background:var(--paper);border-radius:26px;padding:20px 22px 16px;
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.62);
+  transform:translateY(16px) scale(.97);transition:transform .3s cubic-bezier(.2,.9,.3,1.2);
+}
+.about-modal.open .about-sheet{transform:none}
+.about-close{
+  position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:50%;
+  border:1px solid var(--line);background:var(--paper-2);color:var(--ink-soft);
+  display:grid;place-items:center;cursor:pointer;
+}
+.about-close:hover{color:var(--ink);border-color:#C9B08A}
+.about-close svg{width:13px;height:13px}
+.about-head{display:flex;align-items:center;gap:13px;padding-right:38px}
+.about-mark{width:46px;height:46px;flex:0 0 46px}
+.about-title{font-size:20px;font-weight:900;letter-spacing:.06em;line-height:1.15}
+.about-sub{font-size:11px;color:var(--ink-soft);margin-top:4px;letter-spacing:.03em}
+.about-lead{
+  margin:10px 0 12px;font-size:13px;line-height:1.65;color:var(--ink-soft);
+  padding:9px 13px;border-radius:14px;background:var(--paper-2);border:1px solid var(--line);
+}
+.about-lead b{color:var(--ink);font-weight:800}
+.about-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+.ag-item{
+  padding:9px 10px 8px;border-radius:14px;background:#fff;border:1px solid var(--line);
+  display:flex;flex-direction:column;gap:5px;position:relative;
+}
+.ag-item b{font-size:12.5px;font-weight:800;line-height:1.35;letter-spacing:.01em}
+.ag-item p{font-size:10.5px;color:var(--ink-soft);line-height:1.5}
+.ag-item em{font-style:normal;font-size:9.5px;color:var(--green);font-weight:700;margin-top:auto;padding-top:3px}
+.ag-tag{
+  position:absolute;top:-7px;left:11px;font-size:9px;font-weight:800;color:#2A2622;
+  background:var(--amber);border-radius:99px;padding:1px 7px;letter-spacing:.04em;
+}
+.about-theory{
+  border-radius:18px;padding:12px 13px 10px;margin-bottom:12px;
+  background:linear-gradient(160deg,#F7EFE0,#F1E4CE);border:1px solid #E7D6BA;
+}
+.at-label{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:900;letter-spacing:.1em;color:var(--deep)}
+.at-label span{font-family:var(--font-en);font-size:8.5px;letter-spacing:.2em;color:#A2957F;font-weight:700;letter-spacing:.18em}
+.at-label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#DCC9A9,transparent)}
+.at-body{font-size:11.5px;color:#6E6357;margin:7px 0 9px;line-height:1.6}
+.at-row{display:flex;gap:9px;padding:5px 0;border-top:1px dashed #DCC9A9}
+.at-num{
+  font-family:var(--font-en);font-size:11px;font-weight:800;color:#B08A46;
+  width:20px;flex:0 0 20px;padding-top:1px;
+}
+.at-row b{font-size:12.5px;font-weight:800;display:block;margin-bottom:3px;color:var(--deep)}
+.at-row p{font-size:11px;line-height:1.6;color:#6E6357}
+.at-rules{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:7px}
+.at-r{
+  background:rgba(255,255,255,.62);border:1px solid #E4D3B6;border-radius:10px;
+  padding:4px 8px;font-size:10px;line-height:1.42;color:#7A6E60;
+}
+.at-r b{display:block;font-size:10.5px;font-weight:900;color:var(--deep);margin-bottom:2px;letter-spacing:.02em}
+.at-foot{
+  margin-top:10px;padding-top:11px;border-top:1px solid #DCC9A9;
+  font-size:11.5px;font-weight:800;color:var(--deep);letter-spacing:.02em;
+}
+.at-bridge{margin-top:7px;font-size:10.5px;line-height:1.6;color:#8A7C6B}
+.at-self{
+  margin:9px 0 0;padding:7px 10px;border-radius:9px;
+  background:rgba(31,59,51,.07);border-left:3px solid #1F3B33;
+  font-size:10.5px;line-height:1.55;color:#5C5348;letter-spacing:.01em;
+}
+.at-self b{color:var(--deep);font-weight:900}
+.about-contact{
+  display:flex;align-items:center;gap:13px;padding:8px 10px;border-radius:18px;
+  background:var(--deep);color:#F4EAD8;
+}
+.ac-qr{width:104px;height:104px;flex:0 0 104px;border-radius:12px;background:#fff;padding:3px;display:block;cursor:zoom-in;box-shadow:0 0 0 1px rgba(255,255,255,.14)}
+.ac-info{min-width:0}
+.ac-name{font-size:13px;font-weight:800;letter-spacing:.03em}
+.ac-wx{font-size:12px;font-weight:800;color:var(--amber);letter-spacing:.06em;margin-top:3px;font-family:var(--font-en)}
+.ac-tip{font-size:11px;color:#B7CFC3;margin-top:5px;line-height:1.5}
+.ac-note{font-size:10.5px;color:#8FAEA0;margin-top:5px}
+.about-foot{text-align:center;font-size:10.5px;color:#A2957F;margin-top:6px;letter-spacing:.04em}
+
+/* 二维码放大层 */
+.qr-zoom{
+  position:fixed;inset:0;z-index:90;display:grid;place-items:center;
+  background:rgba(20,28,24,.82);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);
+  opacity:0;pointer-events:none;transition:opacity .2s;
+}
+.qr-zoom.open{opacity:1;pointer-events:auto}
+.qr-zoom img{
+  width:min(72vmin,340px);height:auto;display:block;background:#fff;
+  padding:12px;border-radius:18px;box-shadow:0 30px 70px -30px rgba(0,0,0,.72);
+}
+.qr-zoom p{position:absolute;bottom:8vh;color:#DCEBE2;font-size:12px;letter-spacing:.06em}
+@media (max-width:560px){
+  .about-grid{grid-template-columns:1fr}
+  .ag-item{flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:4px 8px}
+  .ag-item em{margin-top:0}
+  .about-sheet{padding:22px 18px 18px}
+  .ac-qr{width:88px;height:88px;flex-basis:88px}
+}
 .update-btn .spin{display:none;width:11px;height:11px;border:2px solid rgba(42,38,34,.35);border-top-color:#2A2622;border-radius:50%;animation:spin .7s linear infinite}
 .update-btn.loading .spin{display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -292,6 +420,18 @@ h1{font-family:var(--font-en);font-size:clamp(22px,2.2vw,30px);font-weight:800;l
 .ch.skip{color:#C9BBA0;opacity:.55;font-size:.66em;vertical-align:.12em;font-weight:400}
 .sentence.shake{animation:shake .26s}
 .sentence.celebrate{animation:celebrate .5s}
+/* ===== 整段播放「追光」：光斑跟着人声落到当前单词 ===== */
+.sentence.karaoke .word{
+  position:relative;border-radius:9px;padding:0 .05em;
+  transition:background .16s ease,box-shadow .16s ease;
+}
+.sentence.karaoke .word .ch{transition:color .16s ease;color:var(--ink)}
+.sentence.karaoke .word.lit{
+  background:linear-gradient(180deg,rgba(242,179,61,.30),rgba(242,179,61,.92));
+  box-shadow:0 0 0 3px rgba(242,179,61,.22),0 8px 22px -8px rgba(242,179,61,.95);
+}
+.sentence.karaoke .word.lit .ch{color:#2A2622}
+.sentence.karaoke .word.past .ch{color:#2E7D5B}
 @keyframes shake{10%,90%{transform:translateX(-2px)}30%,70%{transform:translateX(3px)}50%{transform:translateX(-4px)}}
 @keyframes celebrate{0%{transform:scale(1)}40%{transform:scale(1.06)}100%{transform:scale(1)}}
 .meaning{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-height:28px}
@@ -711,8 +851,10 @@ body.kb3d .keyboard[data-hint="D"] .key.next::after{
   .stage-body{grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr)}
   .art{max-width:300px}
 }
-/* iPad 横屏 / 矮屏：压缩纵向空间，让句子和键盘同屏 */
-@media (max-height:880px){
+/* iPad 横屏 / 矮屏 / 桌面宽屏：统一用这套紧凑布局。
+   桌面窗口通常高于 880px，以前不触发，导致键盘多出一行功能键、
+   白框内容溢出被键盘压住；现在让电脑版和 Pad 版完全对齐。 */
+@media (max-height:880px), (min-width:901px){
   .rail{padding:18px 16px calc(18px + env(safe-area-inset-bottom, 0px));gap:14px}
   .rail-note{display:none}
   .rail-foot{gap:8px}
@@ -742,6 +884,17 @@ body.kb3d .keyboard[data-hint="D"] .key.next::after{
   .kb-tip{display:none}
   .hud{padding:4px}
   .hud strong{font-size:16px}
+}
+
+/* 更矮的窗口（小笔记本 / 分屏）：再收一档，保证图片与句子完整、不被键盘压住 */
+@media (max-height:680px){
+  .krow{height:clamp(38px,8.2vh,58px)}
+  .keyboard-panel{padding:12px 12px 13px}
+  .stage-body{gap:12px}
+  .art{max-width:230px}
+  .sentence{font-size:clamp(19px,2.2vw,27px)}
+  .ipa-row,.meaning{min-height:14px}
+  .toolstrip button{padding:4px 8px;font-size:10px}
 }
 
 .cat-group{display:flex;flex-direction:column;gap:2px;margin-bottom:4px}
@@ -841,6 +994,17 @@ body.kb3d .keyboard[data-hint="D"] .key.next::after{
       <button type="button" class="reset-btn" id="resetBtn">清空本机练习记录</button>
       <button type="button" class="update-btn" id="updateBtn"><span class="spin" aria-hidden="true"></span>检查更新</button>
       <p class="rail-note">星星与进度只保存在这台电脑的浏览器里，换设备不会同步。</p>
+    </div>
+
+    <div class="rail-contact">
+      <button type="button" class="rc-card" id="aboutBtn" aria-haspopup="dialog">
+        <img class="rc-qr" src="assets/brand/wechat-qr.png" alt="嘉西微信二维码">
+        <span class="rc-text">
+          <b>联系作者 · 嘉西</b>
+          <i>双伴成长 · 幼小衔接 / 小学学习</i>
+        </span>
+        <svg class="rc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
     </div>
   </aside>
 
@@ -7790,6 +7954,38 @@ const CATS = [
 function isAudioLesson(les){ return !!les && (les.cat==="speech" || les.cat==="dialogue"); }
 let openCat = null;   /* 默认全折叠，点了再展开 */
 let openGrade = null;   /* 默认全部折叠，点击展开，再点收起 */
+/* 整段播放「逐词追光」时间轴：直接对实际播放的两个视频音轨做词级语音识别得到，单位秒。
+   t[i] = 第 i 个词开始出声；d[i] = 第 i 个词收声；e = 本句人声结束。
+   词与词之间的长气口（例如台词首句 Hey 之后约 4 秒才接 don't ever let somebody）
+   由 d[i] 与 t[i+1] 之间的空窗表达，光斑在空窗里会收回，不会一直停在某个词上。 */
+const KARAOKE = {
+  speech: [
+    {t:[0,0.8,1.8],d:[0.8,1.8,2.5],e:2.5},
+    {t:[3.6,3.98,4.16,4.46],d:[3.98,4.16,4.46,4.98],e:4.98},
+    {t:[5.64,5.72,5.94,6.18],d:[5.72,5.94,6.18,6.88],e:6.88},
+    {t:[7.48,7.58,7.88,8.2,8.54],d:[7.58,7.88,8.2,8.54,8.98],e:8.98},
+    {t:[9.48,9.68,9.9,10.24,10.56],d:[9.68,9.9,10.24,10.56,11],e:11},
+    {t:[11.64,11.68,11.94,12.54,13.22,13.44,13.58,13.76,13.96],d:[11.72,11.94,12.54,13.22,13.44,13.58,13.76,13.96,14.44],e:14.44},
+    {t:[14.86,15.04,15.18,15.4,15.58,15.82,16.08],d:[15.04,15.18,15.4,15.58,15.82,16.08,16.48],e:16.48},
+    {t:[16.88,17.04,17.2,17.4,17.52,17.92,18.18,18.44,18.64],d:[17.04,17.2,17.4,17.52,17.92,18.18,18.44,18.64,18.96],e:18.96},
+    {t:[19.12,19.42,19.66,19.94],d:[19.42,19.66,19.94,20.22],e:20.22},
+    {t:[20.84,21.12,21.34,21.58],d:[21.12,21.34,21.58,21.94],e:21.94},
+    {t:[22.14,22.16,22.36,22.62],d:[22.22,22.36,22.62,23.16],e:23.16},
+    {t:[23.72,23.9,24.18],d:[23.9,24.18,24.5],e:24.5},
+  ],
+  dialogue: [
+    {t:[1.1,5.75,6.08,6.3,6.42,6.76,7.16,8.46,8.66,9.14,9.36],d:[1.7,6.08,6.3,6.42,6.76,7.16,7.76,8.66,9.14,9.36,9.62],e:9.62},
+    {t:[11.32,11.94,12.14],d:[11.94,12.14,12.84],e:12.84},
+    {t:[15.18,15.36],d:[15.36,15.72],e:15.72},
+    {t:[18.24,18.86,19.3,19.5],d:[18.86,19.3,19.5,19.94],e:19.94},
+    {t:[21.4,21.54,21.68,21.9,22.2],d:[21.54,21.68,21.9,22.2,22.9],e:22.9},
+    {t:[24.78,24.96,25.26,25.4,25.6],d:[24.96,25.26,25.4,25.6,26.22],e:26.22},
+    {t:[26.38,26.58,26.7,26.88,27.02,27.4,27.4,27.72,27.84],d:[26.58,26.7,26.88,27.02,27.2,27.48,27.72,27.84,28.15],e:28.15},
+    {t:[32.9,33.54,33.76,34.4,34.66,34.88],d:[33.54,33.76,34.02,34.66,34.88,35.58],e:35.58},
+    {t:[36.3],d:[36.44],e:36.44},
+  ],
+};
+
 /* ========== 键盘布局 ========== */
 const KEY_ROWS = [
   [{l:"esc",u:1.35,m:1},{l:"1"}, {l:"2"}, {l:"3"}, {l:"4"}, {l:"5"}, {l:"6"}, {l:"7"}, {l:"8"}, {l:"9"}, {l:"0"}, {l:"-"}, {l:"="}, {l:"back",u:1.75,m:1}],
@@ -7979,11 +8175,12 @@ function reviveAudio(){
 /* 记录"用户已经操作过页面"，并给被挂起的自动朗读补读一次（iOS 手势限制）。
    注意：键盘 keydown 不补读 —— 那说明孩子已经在打字了，再插一句整句朗读只会打架。 */
 ["pointerdown","touchstart","keydown","click"].forEach(ev=>{
-  document.addEventListener(ev,function(){
+  document.addEventListener(ev,function(e){
     try{
       __userActed=true;
-      if(ev!=="keydown") flushAutoSpeak();
-    }catch(e){}
+      __lastGesturePractice = isPracticeGesture(e, ev);
+      if(ev!=="keydown") flushAutoSpeak(e);
+    }catch(e2){}
   },{capture:true,passive:true});
 });
 document.addEventListener("visibilitychange",function(){ if(!document.hidden) reviveAudio(); });
@@ -8303,7 +8500,7 @@ function carouselStart(){
   const m=carouselMedia();
   m.onended=()=>{ carouselEnd(); };
   m.onerror=()=>{ carouselEnd(); };
-  m.ontimeupdate=()=>{ carouselSync(); };   /* 兜底：有些环境 rAF 会被节流，靠 timeupdate 保证切句 */
+  m.ontimeupdate=()=>{ carouselSync(); karaokeSync(m.currentTime||0); };   /* 兜底：有些环境 rAF 会被节流，靠 timeupdate 保证切句与追光 */
   try{ m.pause(); m.currentTime=0; }catch(e){}
   carouselShow(0, false);
   reviveAudio();
@@ -8312,19 +8509,52 @@ function carouselStart(){
   if(p && p.catch) p.catch(()=>{ state.carousel.playing=false; els.cbPlay.textContent="▶ 播放"; });
   carouselTick();
 }
-/* 按播放进度把文字切到"他此刻正在念的那一句"；还没念到的句子不动，气口停顿完整保留 */
+/* 按播放进度把文字切到"他此刻正在念的那一句"；还没念到的句子不动，气口停顿完整保留。
+   切句点与追光共用 KARAOKE 的词级时间轴，避免文字比声音晚切、导致句首词点不亮。 */
 function carouselSync(){
   if(!state.carousel.active) return;
   const m=carouselMedia(), les=LESSONS[state.li];
   const t=m.currentTime||0;
+  const rows=KARAOKE[les.cat];
   let idx=0;
-  les.items.forEach((it,i)=>{ if(t >= (it.start||0) - 0.08) idx=i; });
+  les.items.forEach((it,i)=>{
+    const s=(rows && rows[i] && rows[i].t.length) ? rows[i].t[0]-0.12 : (it.start||0)-0.08;
+    if(t>=s) idx=i;
+  });
   if(idx!==state.carousel.idx) carouselShow(idx, false);
+}
+/* 逐词追光：只在单词真正出声的窗口 [t[i], d[i]] 里点亮。
+   句内长气口（例如台词首句 Hey 之后约 4 秒才接 don't ever let somebody）
+   以及句末空白都不点亮，光斑不会卡在旧词上；已念过的词保留暗绿色。 */
+function karaokeSync(t){
+  if(!state.carousel.active) return;
+  const rows=KARAOKE[LESSONS[state.li].cat];
+  const words=els.sentence.querySelectorAll(".word");
+  if(!rows || !words.length) return;
+  const row=rows[state.si];
+  let cur=-1, spoken=-1;
+  if(row){
+    const n=Math.min(row.t.length, words.length);
+    for(let i=0;i<n;i++){
+      const s=row.t[i];
+      const e=(row.d && row.d[i]!=null) ? row.d[i] : (i+1<n ? row.t[i+1] : row.e);
+      if(t>=s-0.02){
+        spoken=i;
+        if(t<=e+0.05) cur=i;
+      }
+    }
+    if(t>row.e+0.12) cur=-1;
+  }
+  for(let i=0;i<words.length;i++){
+    words[i].classList.toggle("lit", i===cur);
+    words[i].classList.toggle("past", spoken>=0 && i<=spoken && i!==cur);
+  }
 }
 function carouselTick(){
   if(!state.carousel.active) return;
   carouselSync();
   const m=carouselMedia();
+  karaokeSync(m.currentTime||0);
   if(!m.paused && !m.ended) requestAnimationFrame(carouselTick);
 }
 function carouselShow(i, seek){
@@ -8371,6 +8601,7 @@ function carouselExit(){
 function carouselEnd(){
   state.carousel.playing=false;
   els.cbPlay.textContent="▶ 再播一遍";
+  karaokeSync(-1);   /* 播完把光斑收回，句子恢复中性 */
 }
 
 /* ========== 字母读音引擎（26 个预合成音频） ==========
@@ -8741,14 +8972,21 @@ function charSpan(c,i){
 
 function renderSentence(){
   const t=state.target;
+  const karaoke = !!state.carousel.active;   /* 整段播放：显示完整原句，去掉打字状态，交给追光 */
   let i=0, out="";
   t.split(" ").forEach((word,wi,arr)=>{
     out += '<span class="word">';
-    for(const c of word){ out += charSpan(c,i); i++; }
+    for(const c of word){
+      out += karaoke ? `<span class="ch">${c}</span>` : charSpan(c,i);
+      i++;
+    }
     out += "</span>";
-    if(wi<arr.length-1){ out += charSpan(" ",i); i++; }
+    if(wi<arr.length-1){
+      out += karaoke ? '<span class="ch space"></span>' : charSpan(" ",i);
+      i++;
+    }
   });
-  els.sentence.className = "sentence" + (maskedMode()?" masked":"");
+  els.sentence.className = "sentence" + (maskedMode() && !karaoke ? " masked":"") + (karaoke ? " karaoke":"");
   els.sentence.innerHTML = out;
 }
 
@@ -8865,19 +9103,30 @@ function loadSentence(si){
    iPad/Safari 在用户第一次触摸或按键之前会静默拒绝语音合成与音频播放，
    所以无手势时先挂起，等第一个手势落地再补读，避免"没声音、以为坏了"。 */
 let __needAutoSpeak=false, __autoSpeakPlaying=false, __userActed=false, __autoSpeakTimer=0;
+let __lastGesturePractice=false;
+/* 点侧栏 / 设置面板 / 关于弹窗这类界面，不算「孩子开始练了」。
+   否则进课后第一次点「联系作者」会莫名蹦出当前句子的自动朗读（默认第一条正好是 hello）。 */
+const NON_PRACTICE_SEL = ".rail,.about-modal,.qr-zoom,#kbcfg,#voiceCfg,.toast";
+function isPracticeGesture(e, evName){
+  if(!e || !e.target || !e.target.closest) return false;
+  if(evName === "keydown") return false;
+  return !e.target.closest(NON_PRACTICE_SEL);
+}
 function requestAutoSpeak(){
   __needAutoSpeak=true;
   setTimeout(function(){
     if(!__needAutoSpeak) return;
     /* 孩子已经开始打了：不再插一句整句朗读去打断他 */
     if(state.correct>0 || state.errors>0){ __needAutoSpeak=false; return; }
-    if(!__userActed) return;          /* 还没有用户手势：等手势到了由 flushAutoSpeak 补读 */
+    /* 没有手势，或最后一次手势只是点界面：保持挂起，等真正点到练习区再补读 */
+    if(!__userActed || !__lastGesturePractice) return;
     __needAutoSpeak=false;
     speak();
   },300);
 }
-function flushAutoSpeak(){
+function flushAutoSpeak(e){
   if(!__needAutoSpeak) return;
+  if(!isPracticeGesture(e, e && e.type)) return;   /* 保留挂起标记，不在这里读 */
   if(state.correct>0 || state.errors>0){ __needAutoSpeak=false; return; }  /* 已经开始打这句了：不打断 */
   __needAutoSpeak=false;
   speak();
@@ -9581,6 +9830,121 @@ if(window.ResizeObserver){
   }catch(e){}
 }
 
+</script>
+
+<div class="about-modal" id="aboutModal" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+  <div class="about-sheet">
+    <button type="button" class="about-close" id="aboutClose" aria-label="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <div class="about-head">
+      <svg class="about-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#1F3B33"/>
+        <rect x="9" y="15" width="11" height="9" rx="3" fill="#F5B24A"/>
+        <rect x="24" y="15" width="11" height="9" rx="3" fill="#E2604C"/>
+        <rect x="39" y="15" width="16" height="9" rx="3" fill="#2F9C74"/>
+        <rect x="9" y="28" width="15" height="9" rx="3" fill="#E2604C"/>
+        <rect x="28" y="28" width="11" height="9" rx="3" fill="#F5B24A"/>
+        <rect x="43" y="28" width="12" height="9" rx="3" fill="#E2604C"/>
+        <rect x="9" y="41" width="46" height="9" rx="3" fill="#FFFCF5"/>
+      </svg>
+      <div>
+        <p class="about-title" id="aboutTitle">嘉西学堂</p>
+        <p class="about-sub">幼小衔接 · 小学学习 · AI 学习小工具</p>
+      </div>
+    </div>
+
+    <p class="about-lead">不用报班，也不用一直盯着。<b>他要的不是被教，是有人陪他自己学会。</b></p>
+
+    <div class="about-grid">
+      <div class="ag-item">
+        <span class="ag-tag">正在用</span>
+        <b>英语跟打台</b>
+        <p>人教三上–六下 64 课，加演讲和电影台词，每天 6 句。</p>
+        <em>免费 · 不用注册</em>
+      </div>
+      <div class="ag-item">
+        <span class="ag-tag" style="background:#DCEBE4;color:#1F3B33">双伴成长</span>
+        <b>幼小衔接学习平台</b>
+        <p>3–7 岁入学准备，双伴成长理论真正落地的地方。</p>
+      </div>
+      <div class="ag-item">
+        <b>小学学习平台</b>
+        <p>跟着课本进度，一课一课过。</p>
+      </div>
+      <div class="ag-item">
+        <span class="ag-tag" style="background:#EDE4D3;color:#6E5B3C">即将推出</span>
+        <b>孩子的 AI 启蒙教育</b>
+        <p>让孩子学会跟 AI 一起想，而不是让 AI 替他想。</p>
+        <em>正在做 · 敬请期待</em>
+      </div>
+    </div>
+
+    <div class="about-theory">
+      <p class="at-label">双伴成长 <span>DOUBLE COMPANION</span></p>
+      <p class="at-body"><b>「双伴」不是两个伴</b>，是 AI 同一个角色的两种关系：既在旁陪伴，也并肩同行。传统产品是「AI 教孩子」，双伴是「AI 陪孩子自己学」。</p>
+      <div class="at-row">
+        <span class="at-num">01</span>
+        <div>
+          <b>陪伴 · 一直在场</b>
+          <p>不离开、不评判，先接住他的情绪和卡点。</p>
+        </div>
+      </div>
+      <div class="at-row">
+        <span class="at-num">02</span>
+        <div>
+          <b>伙伴 · 一起找答案</b>
+          <p>不站在上面给结论，蹲下来跟他并肩找。</p>
+        </div>
+      </div>
+      <p class="at-self">孩子是第一自我，AI 是第二自我——<b>学习的主体权，始终留在孩子手里。</b></p>
+    </div>
+
+    <div class="about-contact">
+      <img class="ac-qr" src="assets/brand/wechat-qr.png" alt="嘉西微信二维码">
+      <div class="ac-info">
+        <p class="ac-name">嘉西同学</p>
+        <p class="ac-wx">微信 JXTX09</p>
+        <p class="ac-tip">扫码加我 · 点二维码可放大</p>
+        <p class="ac-note">想加课本、演讲、台词，直接跟我说。</p>
+      </div>
+    </div>
+
+    <p class="about-foot">本工具永久免费 · 无广告 · 无内购 · 不用注册</p>
+  </div>
+</div>
+
+<div class="qr-zoom" id="qrZoom" role="dialog" aria-label="微信二维码放大">
+  <img src="assets/brand/wechat-qr.png" alt="嘉西微信二维码">
+  <p>扫一扫加我 · 账号 JXTX09 · 点任意处关闭</p>
+</div>
+
+<script>
+(function(){
+  const modal = document.getElementById("aboutModal");
+  const openBtn = document.getElementById("aboutBtn");
+  const closeBtn = document.getElementById("aboutClose");
+  const zoom = document.getElementById("qrZoom");
+  const qrImg = modal ? modal.querySelector(".ac-qr") : null;
+  if(!modal || !openBtn) return;
+  function open(){ modal.classList.add("open"); }
+  function close(){ modal.classList.remove("open"); }
+  openBtn.addEventListener("click", open);
+  if(closeBtn) closeBtn.addEventListener("click", close);
+  modal.addEventListener("click", function(e){ if(e.target === modal) close(); });
+
+  function zoomOn(e){ if(e) e.stopPropagation(); if(zoom) zoom.classList.add("open"); }
+  function zoomOff(){ if(zoom) zoom.classList.remove("open"); }
+  if(qrImg) qrImg.addEventListener("click", zoomOn);
+  if(zoom) zoom.addEventListener("click", zoomOff);
+
+  document.addEventListener("keydown", function(e){
+    if(e.key !== "Escape") return;
+    if(zoom && zoom.classList.contains("open")){ zoomOff(); return; }
+    if(modal.classList.contains("open")) close();
+  });
+})();
 </script>
 </body>
 </html>
