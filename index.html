@@ -156,12 +156,10 @@ ol,ul{list-style:none}
 .update-btn:hover{filter:brightness(1.05)}
 .update-btn:disabled{opacity:.75;cursor:default}
 
-/* ===== 侧栏底部 · 联系/关于入口 ===== */
+/* ===== 侧栏底部 · 联系/关于入口 =====
+   普通流内元素：排在「检查更新」之后，随侧栏一起滚动，不再悬浮遮挡按钮。 */
 .rail-contact{
-  position:sticky;bottom:0;z-index:3;
-  margin:6px -22px calc(-26px - env(safe-area-inset-bottom,0px));
-  padding:16px 22px calc(16px + env(safe-area-inset-bottom,0px));
-  background:linear-gradient(180deg,rgba(31,59,51,0) 0%,rgba(31,59,51,.94) 24%,var(--deep) 52%);
+  margin:0;padding:0;background:none;
 }
 .rc-card{
   width:100%;display:flex;align-items:center;gap:11px;text-align:left;
@@ -220,6 +218,39 @@ ol,ul{list-style:none}
   position:absolute;top:-7px;left:11px;font-size:9px;font-weight:800;color:#2A2622;
   background:var(--amber);border-radius:99px;padding:1px 7px;letter-spacing:.04em;
 }
+/* 幼小衔接学习平台：标题直达、网址可点可复制、二维码可放大 */
+.ag-item.ag-live{
+  padding-right:52px;border-color:#C9DACD;
+  background:linear-gradient(160deg,#FFFFFF,#F4FAF6);
+}
+.ag-qr{
+  position:absolute;top:9px;right:9px;width:38px;height:38px;
+  border-radius:7px;background:#fff;border:1px solid var(--line);
+  padding:2px;object-fit:contain;cursor:zoom-in;display:block;
+}
+.ag-qr:hover{border-color:var(--green)}
+.ag-title-link{
+  color:var(--deep);text-decoration:none;border-bottom:1px dashed #9DBBA9;
+}
+.ag-title-link:hover{color:var(--green);border-bottom-color:var(--green)}
+.ag-title-link::after{content:" ↗";font-size:10px;color:var(--green);font-weight:800}
+.ag-live .ag-urlrow,.ag-live em{margin-right:-42px}
+.ag-urlrow{display:flex;align-items:center;gap:5px;margin-top:1px}
+.ag-url{
+  flex:1;min-width:0;font-family:var(--font-en);font-size:10px;font-weight:700;
+  color:var(--deep);text-decoration:none;background:#EDF5EF;border:1px solid #D5E6DA;
+  border-radius:7px;padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  -webkit-user-select:all;user-select:all;
+}
+.ag-url:hover{background:#DCEFE2;border-color:#A9CFBA}
+.ag-copy{
+  flex:0 0 auto;font-family:var(--font-cn);font-size:9.5px;font-weight:800;
+  color:#fff;background:var(--green);border:0;border-radius:7px;
+  padding:4px 7px;cursor:pointer;white-space:nowrap;
+}
+.ag-copy:hover{background:#258A65}
+.ag-copy.done{background:var(--deep)}
+.ag-live em{color:var(--green);font-size:9px;letter-spacing:0}
 .about-theory{
   border-radius:18px;padding:12px 13px 10px;margin-bottom:12px;
   background:linear-gradient(160deg,#F7EFE0,#F1E4CE);border:1px solid #E7D6BA;
@@ -280,6 +311,9 @@ ol,ul{list-style:none}
   .about-grid{grid-template-columns:1fr}
   .ag-item{flex-direction:row;align-items:baseline;flex-wrap:wrap;gap:4px 8px}
   .ag-item em{margin-top:0}
+  .ag-item.ag-live{flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:5px}
+  .ag-live .ag-urlrow,.ag-live em{margin-right:0}
+  .ag-live em{margin-top:auto}
   .about-sheet{padding:22px 18px 18px}
   .ac-qr{width:88px;height:88px;flex-basis:88px}
 }
@@ -385,6 +419,7 @@ h1{font-family:var(--font-en);font-size:clamp(22px,2.2vw,30px);font-weight:800;l
 }
 #ipa{font-family:var(--font-en);font-size:clamp(14px,1.35vw,18px);color:#5E7A6D;letter-spacing:.02em;flex:0 1 auto;min-width:0;word-break:break-word}
 .ipa-row.hide{display:none}
+.ipa-row.ipa-empty #ipa{color:#8A837B;font:13px/1.5 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;letter-spacing:0}
 .speak-btn{
   width:38px;height:38px;flex:0 0 38px;border-radius:50%;border:0;background:var(--deep);color:#FFF5E2;
   display:grid;place-items:center;transition:.18s;box-shadow:0 6px 12px -8px rgba(31,59,51,.9)
@@ -9007,12 +9042,17 @@ function renderStage(){
   const showIpa = state.mode==="ipa" || state.mode==="listen";
   els.ipaRow.classList.toggle("hide", !showIpa);
   if(state.mode==="ipa"){
-    els.ipa.textContent = item.ipa || "";
-    els.ipaRow.classList.toggle("hide", !item.ipa);
+    const hasIpa = !!(item.ipa && item.ipa.trim());
+    /* 句子课 / 演讲台词没有逐句音标：不再整行隐藏，给出明确提示，避免英文被遮住却一片空白 */
+    els.ipa.textContent = hasIpa ? item.ipa : "本课暂无逐句音标 · 建议用「听音跟打」";
+    els.ipaRow.classList.remove("hide");
+    els.ipaRow.classList.toggle("ipa-empty", !hasIpa);
   } else if(state.mode==="listen"){
     els.ipa.textContent = "点喇叭听发音，听完再打，可以反复听";
+    els.ipaRow.classList.remove("ipa-empty");
   } else {
     els.ipa.textContent = "";
+    els.ipaRow.classList.remove("ipa-empty");
   }
 
   els.meaning.classList.toggle("hide", state.mode==="listen" || !zhOn);
@@ -9335,7 +9375,12 @@ els.modeSwitch.addEventListener("click",(e)=>{
   renderStage();
   if(state.mode==="ipa"||state.mode==="listen") speak();
   const names={look:"看图跟打",ipa:"音标跟打",listen:"听音跟打",zh:"中文跟打"};
-  toast("已切换到" + names[state.mode] + "，" + (state.mode==="look"?"英文已显示":"英文已遮住，靠音标或听力来打"));
+  const curItem = LESSONS[state.li].items[state.si];
+  const noIpa = !(curItem.ipa && curItem.ipa.trim());
+  toast("已切换到" + names[state.mode] + "，" +
+    (state.mode==="look" ? "英文已显示" :
+     (state.mode==="ipa" && noIpa) ? "本课暂无逐句音标，请用听音跟打" :
+     "英文已遮住，靠音标或听力来打"));
 });
 
 els.hintBtn.addEventListener("click",()=>{
@@ -9864,10 +9909,16 @@ if(window.ResizeObserver){
         <p>人教三上–六下 64 课，加演讲和电影台词，每天 6 句。</p>
         <em>免费 · 不用注册</em>
       </div>
-      <div class="ag-item">
+      <div class="ag-item ag-live">
         <span class="ag-tag" style="background:#DCEBE4;color:#1F3B33">双伴成长</span>
-        <b>幼小衔接学习平台</b>
+        <img class="ag-qr" src="assets/brand/youxiao-qr.png" alt="幼小衔接学习平台二维码" title="点二维码可放大">
+        <b><a class="ag-title-link" href="http://1.15.61.89/app.html" target="_blank" rel="noopener noreferrer">幼小衔接学习平台</a></b>
         <p>3–7 岁入学准备，双伴成长理论真正落地的地方。</p>
+        <div class="ag-urlrow">
+          <a class="ag-url" href="http://1.15.61.89/app.html" target="_blank" rel="noopener noreferrer" title="点链接直接打开，也可长按选中复制">http://1.15.61.89/app.html</a>
+          <button type="button" class="ag-copy" id="copyYouxiao">复制</button>
+        </div>
+        <em>点标题或网址直接打开 · 二维码可放大扫码</em>
       </div>
       <div class="ag-item">
         <b>小学学习平台</b>
@@ -9926,7 +9977,12 @@ if(window.ResizeObserver){
   const openBtn = document.getElementById("aboutBtn");
   const closeBtn = document.getElementById("aboutClose");
   const zoom = document.getElementById("qrZoom");
-  const qrImg = modal ? modal.querySelector(".ac-qr") : null;
+  const zoomImg = zoom ? zoom.querySelector("img") : null;
+  const zoomCap = zoom ? zoom.querySelector("p") : null;
+  const wxQr = modal ? modal.querySelector(".ac-qr") : null;
+  const yxQr = modal ? modal.querySelector(".ag-qr") : null;
+  const copyBtn = document.getElementById("copyYouxiao");
+  const YX_URL = "http://1.15.61.89/app.html";
   if(!modal || !openBtn) return;
   function open(){ modal.classList.add("open"); }
   function close(){ modal.classList.remove("open"); }
@@ -9934,10 +9990,60 @@ if(window.ResizeObserver){
   if(closeBtn) closeBtn.addEventListener("click", close);
   modal.addEventListener("click", function(e){ if(e.target === modal) close(); });
 
-  function zoomOn(e){ if(e) e.stopPropagation(); if(zoom) zoom.classList.add("open"); }
+  /* 同一个放大层复用：按点的是哪张码切换图片和说明 */
+  function showZoom(img, caption){
+    if(!zoom) return;
+    if(zoomImg && img) zoomImg.src = img.getAttribute("src");
+    if(zoomCap) zoomCap.textContent = caption;
+    zoom.classList.add("open");
+  }
   function zoomOff(){ if(zoom) zoom.classList.remove("open"); }
-  if(qrImg) qrImg.addEventListener("click", zoomOn);
+  if(wxQr) wxQr.addEventListener("click", function(e){
+    e.stopPropagation();
+    showZoom(wxQr, "扫一扫加我 · 账号 JXTX09 · 点任意处关闭");
+  });
+  if(yxQr) yxQr.addEventListener("click", function(e){
+    e.stopPropagation();
+    showZoom(yxQr, "幼小衔接学习平台 · 微信/相机扫码进入 · 点任意处关闭");
+  });
   if(zoom) zoom.addEventListener("click", zoomOff);
+
+  /* 复制链接：优先系统剪贴板，本地 file:// 打开时降级到 execCommand */
+  function fallbackCopy(text){
+    const ta=document.createElement("textarea");
+    ta.value=text; ta.setAttribute("readonly","");
+    ta.style.cssText="position:fixed;top:-1000px;opacity:0";
+    document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, text.length);
+    let ok=false;
+    try{ ok=document.execCommand("copy"); }catch(e){}
+    document.body.removeChild(ta);
+    return ok;
+  }
+  function feedback(ok){
+    if(!copyBtn) return;
+    copyBtn.textContent = ok ? "已复制 ✓" : "请长按网址复制";
+    copyBtn.classList.toggle("done", ok);
+    if(typeof window.toast === "function"){
+      window.toast(ok ? "链接已复制，粘贴到浏览器即可打开" : "请长按网址手动复制");
+    }
+    setTimeout(function(){
+      copyBtn.textContent = "复制";
+      copyBtn.classList.remove("done");
+    }, 2000);
+  }
+  if(copyBtn) copyBtn.addEventListener("click", async function(e){
+    e.stopPropagation();
+    let ok=false;
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        await navigator.clipboard.writeText(YX_URL);
+        ok=true;
+      }
+    }catch(err){}
+    if(!ok) ok=fallbackCopy(YX_URL);
+    feedback(ok);
+  });
 
   document.addEventListener("keydown", function(e){
     if(e.key !== "Escape") return;
