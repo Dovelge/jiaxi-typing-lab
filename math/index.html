@@ -673,6 +673,31 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
   .contact-entry{display:none}
   .contact-foot{display:inline-flex}
 }
+
+/* ABOUT_V2：卡片右上角不再放小码，内边距回正；整行卡片；统一「点这里打开」按钮样式 */
+.ag-item.ag-live{padding-right:10px}
+.ag-live .ag-urlrow,.ag-live em{margin-right:0}
+.ag-wide{grid-column:1/-1}
+.ag-cta{
+  flex:1 1 auto;min-width:0;display:block;text-align:center;
+  font-size:10.5px;font-weight:800;color:var(--deep);text-decoration:none;
+  background:#EDF5EF;border:1px solid #D5E6DA;border-radius:7px;padding:4px 6px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.ag-cta:hover{background:#DCEFE2;border-color:#A9CFBA;color:#1B5E45}
+.ag-cta:active{background:#CDE7D8}
+@media (max-width:560px){
+  .ag-item.ag-live{padding-right:10px}
+}
+
+/* ABOUT_V2b：手机上卡片一律竖排、行距留够，卡角标签不再被上一张卡压住 */
+.about-grid{row-gap:16px}
+.ag-tag{z-index:3}
+@media (max-width:560px){
+  .ag-item{flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:5px}
+  .ag-item em{margin-top:auto;padding-top:4px}
+  .ag-item.ag-live{flex-direction:column}
+}
 </style>
 </head>
 <body>
@@ -803,18 +828,18 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
       </div>
     </div>
 
-    <p class="about-lead">不用报班，也不用一直盯着。<b>他要的不是被教，是有人陪他自己学会。</b></p>
+    <p class="about-lead">不用报班，也不用一直盯着。<b>他要的不是被教，是有人陪他自己学会。</b><span style="display:block;margin-top:6px;font-size:11.5px;color:#8C7F6C;line-height:1.6">今天教什么、学了就忘、自己教不了、坐不住 —— 这四件最磨人的事，我一件件做成了小工具。</span></p>
 
     <div class="about-grid">
       <div class="ag-item ag-live">
-        <span class="ag-tag">正在用</span>
-        <b><a class="ag-title-link" href="https://dovelge.github.io/jiaxi-typing-lab/" target="_blank" rel="noopener noreferrer">英语跟打台</a></b>
+        <span class="ag-tag">已上线</span>
+        <b><a class="ag-title-link" href="https://wbapp-dramb3qyv4uwld14ejaqjj.app.workbuddy.host/?sharecode=KXX2A4MD5Z&amp;shareId=ed90251995e8485d8e7645d4698aec7b" target="_blank" rel="noopener noreferrer">英语跟打台</a></b>
         <p>人教三上–六下 64 课，加演讲和电影台词，每天 6 句。</p>
         <div class="ag-urlrow">
-          <a class="ag-url zh" data-url href="https://dovelge.github.io/jiaxi-typing-lab/" target="_blank" rel="noopener noreferrer" title="https://dovelge.github.io/jiaxi-typing-lab/">点这里打开英语跟打台</a>
-          <button type="button" class="ag-copy" data-copy="https://dovelge.github.io/jiaxi-typing-lab/">复制</button>
+          <a class="ag-cta" data-url href="https://wbapp-dramb3qyv4uwld14ejaqjj.app.workbuddy.host/?sharecode=KXX2A4MD5Z&amp;shareId=ed90251995e8485d8e7645d4698aec7b" target="_blank" rel="noopener noreferrer" title="https://wbapp-dramb3qyv4uwld14ejaqjj.app.workbuddy.host/?sharecode=KXX2A4MD5Z&amp;shareId=ed90251995e8485d8e7645d4698aec7b">点这里打开英语跟打台</a>
+          <button type="button" class="ag-copy" data-copy="https://wbapp-dramb3qyv4uwld14ejaqjj.app.workbuddy.host/?sharecode=KXX2A4MD5Z&amp;shareId=ed90251995e8485d8e7645d4698aec7b" data-url="https://wbapp-dramb3qyv4uwld14ejaqjj.app.workbuddy.host/?sharecode=KXX2A4MD5Z&amp;shareId=ed90251995e8485d8e7645d4698aec7b">复制</button>
         </div>
-        <em>点标题或网址直接打开 · 免费 · 不用注册</em>
+        <em>免费 · 不用注册 · 打错自动记进易错字母本</em>
       </div>
 
       <div class="ag-item ag-live">
@@ -822,16 +847,17 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
         <b><a class="ag-title-link" href="http://1.15.61.89/t" target="_blank" rel="noopener noreferrer">幼小衔接学习平台</a></b>
         <p>3–7 岁入学准备，双伴成长理论真正落地的地方。</p>
         <div class="ag-urlrow">
-          <a class="ag-url zh" data-url href="http://1.15.61.89/t" target="_blank" rel="noopener noreferrer" title="http://1.15.61.89/t">点这里打开幼小衔接平台</a>
-          <button type="button" class="ag-copy" data-copy="http://1.15.61.89/t">复制</button>
+          <a class="ag-cta" data-url href="http://1.15.61.89/t" target="_blank" rel="noopener noreferrer" title="http://1.15.61.89/t">点这里打开幼小衔接平台</a>
+          <button type="button" class="ag-copy" data-copy="http://1.15.61.89/t" data-url="http://1.15.61.89/t">复制</button>
         </div>
-        <em>点标题或网址直接打开</em>
+        <em>免费 · 不用注册 · 每天 15 分钟</em>
       </div>
 
       <div class="ag-item">
         <span class="ag-tag" style="background:#EDE4D3;color:#6E5B3C">即将上线</span>
         <b>小学学习平台</b>
-        <p>跟着课本进度，一课一课过。即将上线，敬请期待。</p>
+        <p>跟着课本进度，一课一课过。</p>
+        <em>正在做 · 敬请期待</em>
       </div>
 
       <div class="ag-item">
@@ -841,11 +867,11 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
         <em>正在做 · 敬请期待</em>
       </div>
 
-      <div class="ag-item ag-wide">
+      <div class="ag-item ag-live ag-wide">
         <span class="ag-tag" style="background:#FFE0CE;color:#8A4327">你正在这里</span>
         <b>数学玩具箱</b>
-        <p>36 件能动手的数学玩具，小学 1–6 年级，拨指针、付钱、撕角、切圆，先动手再想为什么。</p>
-        <em>免费 · 不用注册 · 玩对了亮一颗星</em>
+        <p>55 件能动手的数学玩具，小学 1–6 年级，拨指针、付钱、撕角、切圆。</p>
+        <em>你正在这里 · 免费 · 不用注册 · 做对了亮一颗星</em>
       </div>
     </div>
 
@@ -1290,6 +1316,7 @@ function closeTool(keepScroll){
   if(activeRaf){ cancelAnimationFrame(activeRaf); activeRaf = null; }
   if(activeStage){ activeStage.destroy(); activeStage = null; }
   Voice.stop();
+  if(typeof Voice.cancelTask === "function") Voice.cancelTask();
   if(typeof clearGuideTimer === "function") clearGuideTimer();
   studio.classList.remove("open");
   studio.setAttribute("aria-hidden", "true");
@@ -1402,8 +1429,10 @@ if(refreshBtn2){
    zh-CN-XiaoyiNeural / +20Hz / -5% / loudnorm，
    与「嘉西学堂」小狐狸原声同一套参数。
    找不到对应录音时，才退回系统实时合成，并沿用同一组语速与音高。 */
-var FOX_SND = {"钟表上的短针是时针，长针是分针。用手指按住针尖拖一圈试试，下面的数字会跟着变。":"a001.mp3","先拖长的那根，把它对准下面的分钟数；再拖短的那根，看小时怎么跟着跳。":"a002.mp3","两个针都拖到你想要的时刻，上面的小卡片就会打勾。":"a003.mp3","把硬币一枚一枚放进收银盘，付够价钱。付多了也没关系，看看要找几角。":"a004.mp3","先放大的钱，一块的、五角的，最后用一角的把零头补齐。":"a005.mp3","付到正好不多不少，收银盘上的数字就会变绿。":"a006.mp3","每只兔子四条腿，每只鸡两条腿。点加号加一只鸡，看看笼子里一共几条腿。":"a007.mp3","先定一个数，比如先放三只鸡，再数腿够不够，不够就换一只兔子。":"a008.mp3","腿数和题目对上了，笼子上的数字就不再闪了。":"a009.mp3","把整盘点阵转个九十度，再数一遍。四乘三和三乘四，是不是同一回事。":"a010.mp3","按住盘子慢慢转，转满四分之一圈就停，别转太多。":"a011.mp3","两个方向数出来一样多，这就是乘法可以交换的秘密。":"a012.mp3","下面有八个数位。点一下数位，再用上下箭头拨数字，读法马上跟着变。":"a013.mp3","从最左边的高位开始拨，一位一位往右，中间的零别忘了。":"a014.mp3","读法和写法都对上，才会亮星。":"a015.mp3","一百个小格子，涂满一小行就是零点一。用手指划格子，看涂了多少。":"a016.mp3","一小行是十格，涂满一行才是一零点一，别急着涂满整片。":"a017.mp3","涂到题目要的格数，下面的数字就会对上。":"a018.mp3","三个顶点都能拖。拖到哪儿，三个角加起来都拐成一个平角。":"a019.mp3","先拖一个顶点，看另外两个角怎么变；三个顶点都试一次。":"a020.mp3","把三个角拼到一条线上，正好是一百八十度。":"a021.mp3","两条直角边可以拉长。拉一拉，看三个正方形的面积能不能合上。":"a022.mp3","先把两条直角边拉成三和四，斜边自己会变成五。":"a023.mp3","三个正方形的格数对上了，就说明两条直角边的平方加起来等于斜边的平方。":"a024.mp3","圆被切成了很多小瓣。把瓣一片片拖开再拼一拼，看看能拼成什么形状。":"a025.mp3","让小瓣一上一下交错着排，边缘才不会留缝。":"a026.mp3","排成一条长方形，长是半个周长，宽是半径，面积就出来了。":"a027.mp3","在格子里画形状。一格一格点，面积和周长会同时报出来。":"a028.mp3","从一个角开始点，先横着点一排，再往上加一排。":"a029.mp3","面积是里面一共几格，周长是外边一圈的长度，两个数一起看。":"a030.mp3","小格子上可以放方块。换个方向看，形状完全不一样。":"a031.mp3","先在格子上放一块，再点方向按钮看一次，形状会跳一下。":"a032.mp3","三个方向都看一遍，才是真的看懂了这堆积木。":"a033.mp3","只在左边画，右边会自己长出一模一样的。点一下折纸，还能验证对得上。":"a034.mp3","先在对折线的左边慢慢画，画弯一点也没关系。":"a035.mp3","点折纸验证，两边能完全盖住才算对。":"a036.mp3","随便画一笔，六个方向同时开花。换个颜色再试试。":"a037.mp3","按住别松手，一笔画长一点，花才开得大。":"a038.mp3","换一种颜色再画一层，花瓣叠起来更好看。":"a039.mp3","把披萨切成几份，吃掉几份。剩下的几份，就是分数。":"a040.mp3","先选切成几份，再点其中几份吃掉，看看还剩多少。":"a041.mp3","吃掉的份数和总份数，就是那个分数。":"a042.mp3","先把十格框凑满十，再加剩下的。凑十法，算起来很快。":"a043.mp3","先往十格框里填，填满了正好是十，再看外面还剩几个。":"a044.mp3","凑成十再加剩下的，答案很快就出来。":"a045.mp3","转一转长方体的方向，数清六个面、十二条棱、八个顶点。":"a046.mp3","按住盒子慢慢转，转到能同时看见三个面。":"a047.mp3","面、棱、顶点一个个数过去，和右边报的数字对上。":"a048.mp3","把小风车拖一圈。转九十度，正好是一整个圆的四分之一。":"a049.mp3","按住叶片往下拖，看角度数字怎么走，别一下子拖到底。":"a050.mp3","转满四分之一圈是九十度，一整圈是三百六十度。":"a051.mp3","让圆滚一圈。它滚过的长度，正好是它自己的周长。":"a052.mp3","按住圆往右慢慢拖，让它正好滚满一圈，别多也别少。":"a053.mp3","滚过的长度量出来就是周长，和半径算出来的对得上。":"a054.mp3","个位不够减，就撕下一个十。借一个十，再拿走。":"a055.mp3","个位不够减的时候，点十位那一摞，借一个十过来。":"a056.mp3","借完再减，答案就对了，十位记得少一个。":"a057.mp3","先数图里有几只小鸡、几只小兔，把加法填进格子里。":"a058.mp3","先数清楚图里各有几只，再把数字填进下面的空格。":"a059.mp3","填对了，算式会自己算出来。":"a060.mp3","想买的东西有价格。点硬币放进钱盘，正好付够，不多不少。":"a061.mp3","先点大面额的钱，再用小面额把零头补齐。":"a062.mp3","正好付够不用找零，星就亮了。":"a063.mp3","点一个格子盖一个图形。换图形、换颜色，拼一幅自己的画。":"a064.mp3","先在格子上点一下，再挑一个图形盖上去。":"a065.mp3","换颜色换图形，一格一格拼出你自己的画。":"a066.mp3","大盒子里装小盒子。点地面上一格，就往那一格上叠一个。":"a067.mp3","先在地上点一格，再点一下往上叠一层。":"a068.mp3","大盒装小盒，一层一层数清楚一共几个。":"a069.mp3","周长一样，长和宽换来换去，面积会变。拖圆点，找出最大的那个。":"a070.mp3","拖那个圆点，长和宽会一起变，周长一直不变。":"a071.mp3","长和宽越接近，面积越大；变成正方形的时候最大。":"a072.mp3","圆锥装满水，倒进圆柱。数数倒几次，圆柱正好装满。":"a073.mp3","先点圆锥把它装满，再倒进圆柱，数倒了几次。":"a074.mp3","三次正好装满，圆锥就是圆柱的三分之一。":"a075.mp3","立方体表面涂色。转一转，看角上、棱上、中间的方块各涂了几面。":"a076.mp3","按住转一转，看看每个小方块露出几个面。":"a077.mp3","角上三面、棱上两面、中间只有一面。":"a078.mp3","左边是摆好的积木，右边要拼出镜子里的样子。":"a079.mp3","先看清左边每一列有多高，再在右边一处一处摆。":"a080.mp3","摆成镜子里那个样子，两边高低对上了就算成。":"a081.mp3","读一读，写一写。先点一个数位框，再点下面的数字。":"a082.mp3","先点要填的数位，再去点下面的数字键盘。":"a083.mp3","读法和听写都对上，才亮星。":"a084.mp3","同一道鸡兔同笼，有六种想法。点上面的按钮，一种一种换着看。":"a085.mp3","点最上面那几个按钮，一种一种看，别急着跳过。":"a086.mp3","六种都看完，你会挑出最快的那一种。":"a087.mp3","按住画面拖一拖，四维的立方体会跟着转。橙色是里层的立方体。":"a088.mp3","先慢慢转，看清橙色那层的棱是怎么连的。":"a089.mp3","转一整圈，八个立方体都露出来一次。":"a090.mp3","左边的小滑块推上去，六个面就会慢慢折起来。折到底，看看立方体闭上以后是什么样子。":"a091.mp3","先推到一半停一下，看看面立起来的样子，再继续推。":"a092.mp3","推到一百，六个面正好围上，就是正方体。":"a093.mp3","先看清楚这堆积木，再从问的那个方向想一想会看到什么形状，然后在下面点一个答案。":"a094.mp3","先看问的是哪个方向，再数那个方向每一列有几块。":"a095.mp3","选对了会自己换下一题，三道都对了就亮星。":"a096.mp3","把下面那个小滑块慢慢往右拖，左边那一角会搬过去。搬完以后，它就变成一个长方形了。":"a097.mp3","慢慢拖，看着那一角一块一块搬过去，别一下拖到底。":"a098.mp3","搬到头就是长方形，长乘宽就是它的面积。":"a099.mp3","这里像一个量角器。按住红色那条边转一转，蓝色的边不用管，上面的度数会跟着变。":"a100.mp3","先拖到比一半小，再拖过一半，看名字从锐角变成钝角。":"a101.mp3","拖到正好九十度，会画出一个直角的小符号。":"a102.mp3","你看，几个数字排好队了。先想一想它们是怎么变的，再在下面挑一个答案点一下。":"a103.mp3","两个数两个数地看：是每次加几，还是每次乘几。":"a104.mp3","选对了会自动出下一题，连着答对四题就亮星。":"a105.mp3","每一根柱子底下都放着一个水果。按住柱子往上拖或往下拖，数量就变了，看看哪根最高。":"a106.mp3","按住一根柱子慢慢上下拖，数字会跟着你的手指变。":"a107.mp3","把西瓜拖到最高，比最高的那根还高一点，挑战就完成了。":"a108.mp3","好，以后我就用这个声音给你讲。":"a109.mp3","你好，我是小嘉。按住指针，慢慢转一圈试试。":"a110.mp3","这里有一堆小球。点一下，它就跳一下；点一个，数一个。":"a111.mp3","我们一起来数：一、二、三。你点一个，我帮你记着数到几。":"a112.mp3","左边一堆，右边一堆。哪一边更多一点呢？":"a114.mp3","数完啦！最后你数到的那个数，就是一共几个。":"a113.mp3","不用一个一个数，眼睛看哪边更满、更挤。":"a115.mp3","上面有一个大大的数字。看看它是几。":"a117.mp3","点对啦！多的那边，就是数量更大的那边。":"a116.mp3","下面每一堆都是小球，数一数哪一堆刚好是这么多。":"a118.mp3","四个球，大小不一样。":"a120.mp3","对了！数字和数量对上了，它们就住进同一个家。":"a119.mp3","先点最小的那个，再点比它大一点的，一个一个来。":"a121.mp3","全排好了！从小到大，就像排队一样。":"a122.mp3","中间这个数字，想要两个邻居。":"a123.mp3","比它小 1 的那个站前面，比它大 1 的那个站后面。":"a124.mp3","画面里有很多图形，但要找的只有一种。":"a126.mp3","两个邻居都站好啦，前一个后一个你都会了。":"a125.mp3","先看清楚要找的是圆形、三角形还是别的。":"a127.mp3","全部找出来了！形状和形状，你分得很清楚。":"a128.mp3","影子形状一样，只是变成了黑黑的。":"a130.mp3","上面是彩色的图形，下面是它的影子。":"a129.mp3","先点下面的一块，再点上面空着的位置。":"a133.mp3","这幅画被剪成四块，打乱了。":"a132.mp3","拼好啦！四块合在一起，才是一整幅画。":"a134.mp3","配对成功！形状一样，影子就一样。":"a131.mp3","这里有九个图形，看起来都差不多。":"a135.mp3","找到了！它和别的不一样，你的眼睛很尖。":"a137.mp3","这些牌都盖着，两两成对。":"a138.mp3","一行一行看过去，找出颜色或形状不一样的那一个。":"a136.mp3","一次翻两张。一样就留下，不一样就盖回去。":"a139.mp3","先找重复的节奏：红蓝红蓝，还是红红蓝蓝。":"a142.mp3","前面这些图形，是按一个样子重复排的。":"a141.mp3","六对全找到啦。记住位置，就会越来越快。":"a140.mp3","接上了！找到规律，下一个就不难猜。":"a143.mp3","这是迷宫，中间黑色的是墙。":"a144.mp3","走到小旗子啦！一格一格走，就不会乱。":"a146.mp3","一次只能走一格，上下左右都可以。":"a145.mp3","盘子里有豆豆。先数一数，一共几颗？":"a147.mp3","现在把它倒进细杯子里。杯口窄，看着好像变少了。":"a148.mp3","其实一颗也没丢，还是那么多。形状会变，数量不会变。":"a149.mp3","这里有几只小动物，还有一盘饼干。":"a150.mp3","一只小动物发一块饼干，点饼干，它会自己跑过去。":"a151.mp3","一共这么多苹果，要分成两堆。":"a153.mp3","发完看看：饼干多了会剩下一块，少了就一定有一只空着手。":"a152.mp3","把苹果拖进左边的篮子，左边放够，剩下的就都在右边。":"a154.mp3","看，左边几个、右边几个，合起来还是原来那么多。":"a155.mp3","中间是小床。上面是抬头那一格，下面是脚边那一格。":"a159.mp3","一个标准分到底，别中途换想法，筐里就整整齐齐。":"a158.mp3","这些形状混在一起了，我们帮它们回家。":"a156.mp3","先看上面写的规则：这一关只看颜色，还是只看形状。":"a157.mp3","这一关的规则写在最上面：点红色的。":"a162.mp3","放对了小熊就坐上去。上下左右，身体比眼睛记得更牢。":"a161.mp3","先认清左和右：你左手边是左，右手边是右。":"a160.mp3","只点符合规则的，别的一律不动。规则随时会换，会突然变成三角形。":"a163.mp3","眼睛先读规则，再动手。这样才不会点错。":"a164.mp3","下面从 1 角到 100 元都有，点一下就放进收银盘。":"a166.mp3","付够就亮星；付多了也没关系，算一算该找你多少。":"a167.mp3","超市里的东西标着价钱。看看这些钱，凑出要付的数目。":"a165.mp3"};
+var FOX_SND = {"钟表上的短针是时针，长针是分针。用手指按住针尖拖一圈试试，下面的数字会跟着变。":"a001.mp3","先拖长的那根，把它对准下面的分钟数；再拖短的那根，看小时怎么跟着跳。":"a002.mp3","两个针都拖到你想要的时刻，上面的小卡片就会打勾。":"a003.mp3","把硬币一枚一枚放进收银盘，付够价钱。付多了也没关系，看看要找几角。":"a004.mp3","先放大的钱，一块的、五角的，最后用一角的把零头补齐。":"a005.mp3","付到正好不多不少，收银盘上的数字就会变绿。":"a006.mp3","每只兔子四条腿，每只鸡两条腿。点加号加一只鸡，看看笼子里一共几条腿。":"a007.mp3","先定一个数，比如先放三只鸡，再数腿够不够，不够就换一只兔子。":"a008.mp3","腿数和题目对上了，笼子上的数字就不再闪了。":"a009.mp3","把整盘点阵转个九十度，再数一遍。四乘三和三乘四，是不是同一回事。":"a010.mp3","按住盘子慢慢转，转满四分之一圈就停，别转太多。":"a011.mp3","两个方向数出来一样多，这就是乘法可以交换的秘密。":"a012.mp3","下面有八个数位。点一下数位，再用上下箭头拨数字，读法马上跟着变。":"a013.mp3","从最左边的高位开始拨，一位一位往右，中间的零别忘了。":"a014.mp3","读法和写法都对上，才会亮星。":"a015.mp3","一百个小格子，涂满一小行就是零点一。用手指划格子，看涂了多少。":"a016.mp3","一小行是十格，涂满一行才是一零点一，别急着涂满整片。":"a017.mp3","涂到题目要的格数，下面的数字就会对上。":"a018.mp3","三个顶点都能拖。拖到哪儿，三个角加起来都拐成一个平角。":"a019.mp3","先拖一个顶点，看另外两个角怎么变；三个顶点都试一次。":"a020.mp3","把三个角拼到一条线上，正好是一百八十度。":"a021.mp3","两条直角边可以拉长。拉一拉，看三个正方形的面积能不能合上。":"a022.mp3","先把两条直角边拉成三和四，斜边自己会变成五。":"a023.mp3","三个正方形的格数对上了，就说明两条直角边的平方加起来等于斜边的平方。":"a024.mp3","圆被切成了很多小瓣。把瓣一片片拖开再拼一拼，看看能拼成什么形状。":"a025.mp3","让小瓣一上一下交错着排，边缘才不会留缝。":"a026.mp3","排成一条长方形，长是半个周长，宽是半径，面积就出来了。":"a027.mp3","在格子里画形状。一格一格点，面积和周长会同时报出来。":"a028.mp3","从一个角开始点，先横着点一排，再往上加一排。":"a029.mp3","面积是里面一共几格，周长是外边一圈的长度，两个数一起看。":"a030.mp3","小格子上可以放方块。换个方向看，形状完全不一样。":"a031.mp3","先在格子上放一块，再点方向按钮看一次，形状会跳一下。":"a032.mp3","三个方向都看一遍，才是真的看懂了这堆积木。":"a033.mp3","只在左边画，右边会自己长出一模一样的。点一下折纸，还能验证对得上。":"a034.mp3","先在对折线的左边慢慢画，画弯一点也没关系。":"a035.mp3","点折纸验证，两边能完全盖住才算对。":"a036.mp3","随便画一笔，六个方向同时开花。换个颜色再试试。":"a037.mp3","按住别松手，一笔画长一点，花才开得大。":"a038.mp3","换一种颜色再画一层，花瓣叠起来更好看。":"a039.mp3","把披萨切成几份，吃掉几份。剩下的几份，就是分数。":"a040.mp3","先选切成几份，再点其中几份吃掉，看看还剩多少。":"a041.mp3","吃掉的份数和总份数，就是那个分数。":"a042.mp3","先把十格框凑满十，再加剩下的。凑十法，算起来很快。":"a043.mp3","先往十格框里填，填满了正好是十，再看外面还剩几个。":"a044.mp3","凑成十再加剩下的，答案很快就出来。":"a045.mp3","转一转长方体的方向，数清六个面、十二条棱、八个顶点。":"a046.mp3","按住盒子慢慢转，转到能同时看见三个面。":"a047.mp3","面、棱、顶点一个个数过去，和右边报的数字对上。":"a048.mp3","把小风车拖一圈。转九十度，正好是一整个圆的四分之一。":"a049.mp3","按住叶片往下拖，看角度数字怎么走，别一下子拖到底。":"a050.mp3","转满四分之一圈是九十度，一整圈是三百六十度。":"a051.mp3","让圆滚一圈。它滚过的长度，正好是它自己的周长。":"a052.mp3","按住圆往右慢慢拖，让它正好滚满一圈，别多也别少。":"a053.mp3","滚过的长度量出来就是周长，和半径算出来的对得上。":"a054.mp3","个位不够减，就撕下一个十。借一个十，再拿走。":"a055.mp3","个位不够减的时候，点十位那一摞，借一个十过来。":"a056.mp3","借完再减，答案就对了，十位记得少一个。":"a057.mp3","先数图里有几只小鸡、几只小兔，把加法填进格子里。":"a058.mp3","先数清楚图里各有几只，再把数字填进下面的空格。":"a059.mp3","填对了，算式会自己算出来。":"a060.mp3","想买的东西有价格。点硬币放进钱盘，正好付够，不多不少。":"a061.mp3","先点大面额的钱，再用小面额把零头补齐。":"a062.mp3","正好付够不用找零，星就亮了。":"a063.mp3","点一个格子盖一个图形。换图形、换颜色，拼一幅自己的画。":"a064.mp3","先在格子上点一下，再挑一个图形盖上去。":"a065.mp3","换颜色换图形，一格一格拼出你自己的画。":"a066.mp3","大盒子里装小盒子。点地面上一格，就往那一格上叠一个。":"a067.mp3","先在地上点一格，再点一下往上叠一层。":"a068.mp3","大盒装小盒，一层一层数清楚一共几个。":"a069.mp3","周长一样，长和宽换来换去，面积会变。拖圆点，找出最大的那个。":"a070.mp3","拖那个圆点，长和宽会一起变，周长一直不变。":"a071.mp3","长和宽越接近，面积越大；变成正方形的时候最大。":"a072.mp3","圆锥装满水，倒进圆柱。数数倒几次，圆柱正好装满。":"a073.mp3","先点圆锥把它装满，再倒进圆柱，数倒了几次。":"a074.mp3","三次正好装满，圆锥就是圆柱的三分之一。":"a075.mp3","立方体表面涂色。转一转，看角上、棱上、中间的方块各涂了几面。":"a076.mp3","按住转一转，看看每个小方块露出几个面。":"a077.mp3","角上三面、棱上两面、中间只有一面。":"a078.mp3","左边是摆好的积木，右边要拼出镜子里的样子。":"a079.mp3","先看清左边每一列有多高，再在右边一处一处摆。":"a080.mp3","摆成镜子里那个样子，两边高低对上了就算成。":"a081.mp3","读一读，写一写。先点一个数位框，再点下面的数字。":"a082.mp3","先点要填的数位，再去点下面的数字键盘。":"a083.mp3","读法和听写都对上，才亮星。":"a084.mp3","同一道鸡兔同笼，有六种想法。点上面的按钮，一种一种换着看。":"a085.mp3","点最上面那几个按钮，一种一种看，别急着跳过。":"a086.mp3","六种都看完，你会挑出最快的那一种。":"a087.mp3","按住画面拖一拖，四维的立方体会跟着转。橙色是里层的立方体。":"a088.mp3","先慢慢转，看清橙色那层的棱是怎么连的。":"a089.mp3","转一整圈，八个立方体都露出来一次。":"a090.mp3","左边的小滑块推上去，六个面就会慢慢折起来。折到底，看看立方体闭上以后是什么样子。":"a091.mp3","先推到一半停一下，看看面立起来的样子，再继续推。":"a092.mp3","推到一百，六个面正好围上，就是正方体。":"a093.mp3","先看清楚这堆积木，再从问的那个方向想一想会看到什么形状，然后在下面点一个答案。":"a094.mp3","先看问的是哪个方向，再数那个方向每一列有几块。":"a095.mp3","选对了会自己换下一题，三道都对了就亮星。":"a096.mp3","把下面那个小滑块慢慢往右拖，左边那一角会搬过去。搬完以后，它就变成一个长方形了。":"a097.mp3","慢慢拖，看着那一角一块一块搬过去，别一下拖到底。":"a098.mp3","搬到头就是长方形，长乘宽就是它的面积。":"a099.mp3","这里像一个量角器。按住红色那条边转一转，蓝色的边不用管，上面的度数会跟着变。":"a100.mp3","先拖到比一半小，再拖过一半，看名字从锐角变成钝角。":"a101.mp3","拖到正好九十度，会画出一个直角的小符号。":"a102.mp3","你看，几个数字排好队了。先想一想它们是怎么变的，再在下面挑一个答案点一下。":"a103.mp3","两个数两个数地看：是每次加几，还是每次乘几。":"a104.mp3","选对了会自动出下一题，连着答对四题就亮星。":"a105.mp3","每一根柱子底下都放着一个水果。按住柱子往上拖或往下拖，数量就变了，看看哪根最高。":"a106.mp3","按住一根柱子慢慢上下拖，数字会跟着你的手指变。":"a107.mp3","把西瓜拖到最高，比最高的那根还高一点，挑战就完成了。":"a108.mp3","好，以后我就用这个声音给你讲。":"a109.mp3","你好，我是小嘉。按住指针，慢慢转一圈试试。":"a110.mp3","这里有一堆小球。点一下，它就跳一下；点一个，数一个。":"a111.mp3","我们一起来数：一、二、三。你点一个，我帮你记着数到几。":"a112.mp3","左边一堆，右边一堆。哪一边更多一点呢？":"a114.mp3","数完啦！最后你数到的那个数，就是一共几个。":"a113.mp3","不用一个一个数，眼睛看哪边更满、更挤。":"a115.mp3","上面有一个大大的数字。看看它是几。":"a117.mp3","点对啦！多的那边，就是数量更大的那边。":"a116.mp3","下面每一堆都是小球，数一数哪一堆刚好是这么多。":"a118.mp3","四个球，大小不一样。":"a120.mp3","对了！数字和数量对上了，它们就住进同一个家。":"a119.mp3","先点最小的那个，再点比它大一点的，一个一个来。":"a121.mp3","全排好了！从小到大，就像排队一样。":"a122.mp3","中间这个数字，想要两个邻居。":"a123.mp3","比它小 1 的那个站前面，比它大 1 的那个站后面。":"a124.mp3","画面里有很多图形，但要找的只有一种。":"a126.mp3","两个邻居都站好啦，前一个后一个你都会了。":"a125.mp3","先看清楚要找的是圆形、三角形还是别的。":"a127.mp3","全部找出来了！形状和形状，你分得很清楚。":"a128.mp3","影子形状一样，只是变成了黑黑的。":"a130.mp3","上面是彩色的图形，下面是它的影子。":"a129.mp3","先点下面的一块，再点上面空着的位置。":"a133.mp3","这幅画被剪成四块，打乱了。":"a132.mp3","拼好啦！四块合在一起，才是一整幅画。":"a134.mp3","配对成功！形状一样，影子就一样。":"a131.mp3","这里有九个图形，看起来都差不多。":"a135.mp3","找到了！它和别的不一样，你的眼睛很尖。":"a137.mp3","这些牌都盖着，两两成对。":"a138.mp3","一行一行看过去，找出颜色或形状不一样的那一个。":"a136.mp3","一次翻两张。一样就留下，不一样就盖回去。":"a139.mp3","先找重复的节奏：红蓝红蓝，还是红红蓝蓝。":"a142.mp3","前面这些图形，是按一个样子重复排的。":"a141.mp3","六对全找到啦。记住位置，就会越来越快。":"a140.mp3","接上了！找到规律，下一个就不难猜。":"a143.mp3","这是迷宫，中间黑色的是墙。":"a144.mp3","走到小旗子啦！一格一格走，就不会乱。":"a146.mp3","一次只能走一格，上下左右都可以。":"a145.mp3","盘子里有豆豆。先数一数，一共几颗？":"a147.mp3","现在把它倒进细杯子里。杯口窄，看着好像变少了。":"a148.mp3","其实一颗也没丢，还是那么多。形状会变，数量不会变。":"a149.mp3","这里有几只小动物，还有一盘饼干。":"a150.mp3","一只小动物发一块饼干，点饼干，它会自己跑过去。":"a151.mp3","一共这么多苹果，要分成两堆。":"a153.mp3","发完看看：饼干多了会剩下一块，少了就一定有一只空着手。":"a152.mp3","把苹果拖进左边的篮子，左边放够，剩下的就都在右边。":"a154.mp3","看，左边几个、右边几个，合起来还是原来那么多。":"a155.mp3","中间是小床。上面是抬头那一格，下面是脚边那一格。":"a159.mp3","一个标准分到底，别中途换想法，筐里就整整齐齐。":"a158.mp3","这些形状混在一起了，我们帮它们回家。":"a156.mp3","先看上面写的规则：这一关只看颜色，还是只看形状。":"a157.mp3","这一关的规则写在最上面：点红色的。":"a162.mp3","放对了小熊就坐上去。上下左右，身体比眼睛记得更牢。":"a161.mp3","先认清左和右：你左手边是左，右手边是右。":"a160.mp3","只点符合规则的，别的一律不动。规则随时会换，会突然变成三角形。":"a163.mp3","眼睛先读规则，再动手。这样才不会点错。":"a164.mp3","下面从 1 角到 100 元都有，点一下就放进收银盘。":"a166.mp3","付够就亮星；付多了也没关系，算一算该找你多少。":"a167.mp3","超市里的东西标着价钱。看看这些钱，凑出要付的数目。":"a165.mp3","零":"b001.mp3","一":"b002.mp3","二":"b003.mp3","三":"b004.mp3","四":"b005.mp3","五":"b006.mp3","六":"b007.mp3","七":"b008.mp3","八":"b009.mp3","九":"b010.mp3","十":"b011.mp3","十一":"b012.mp3","十二":"b013.mp3","十三":"b014.mp3","十四":"b015.mp3","十五":"b016.mp3","十六":"b017.mp3","十七":"b018.mp3","十八":"b019.mp3","十九":"b020.mp3","二十":"b021.mp3","加":"b022.mp3","减":"b023.mp3","等于几":"b024.mp3","一共 6 个苹果，左边放 2 个":"b025.mp3","一共 6 个苹果，左边放 3 个":"b026.mp3","一共 6 个苹果，左边放 4 个":"b027.mp3","一共 7 个苹果，左边放 2 个":"b028.mp3","一共 7 个苹果，左边放 3 个":"b029.mp3","一共 7 个苹果，左边放 4 个":"b030.mp3","一共 7 个苹果，左边放 5 个":"b031.mp3","一共 8 个苹果，左边放 2 个":"b032.mp3","一共 8 个苹果，左边放 3 个":"b033.mp3","一共 8 个苹果，左边放 4 个":"b034.mp3","一共 8 个苹果，左边放 5 个":"b035.mp3","一共 8 个苹果，左边放 6 个":"b036.mp3","找出正好 3 个的那一堆":"b037.mp3","找出正好 4 个的那一堆":"b038.mp3","找出正好 5 个的那一堆":"b039.mp3","找出正好 6 个的那一堆":"b040.mp3","找出正好 7 个的那一堆":"b041.mp3","找出正好 8 个的那一堆":"b042.mp3","给 3 找两个邻居":"b043.mp3","给 4 找两个邻居":"b044.mp3","给 5 找两个邻居":"b045.mp3","给 6 找两个邻居":"b046.mp3","给 7 找两个邻居":"b047.mp3","给 8 找两个邻居":"b048.mp3","点出所有的圆形":"b049.mp3","点出所有的三角形":"b050.mp3","点出所有的正方形":"b051.mp3","点出所有的星星":"b052.mp3","把小熊放到小床的上面":"b053.mp3","把小熊放到小床的下面":"b054.mp3","把小熊放到小床的左面":"b055.mp3","把小熊放到小床的右面":"b056.mp3","点红色的":"b057.mp3","点三角形":"b058.mp3","点蓝色的":"b059.mp3","听我念算式，再从下面四个牌子里挑一个对的，连对五题火箭就升一关。":"b060.mp3","第一关是十以内的加法。答错了没关系，小球提示会出来，数一数小球就知道。":"b061.mp3","四关分别是十以内加减法和二十以内的进位加、退位减。慢慢来，算准了再点。":"b062.mp3"};
 var FOX_BASE = "audio/";
+/* 算式朗读词片段：n0~n20=零~二十，jia=加，jian=减，dy=等于几 */
+var CALC_SND = {"n0":"b001.mp3","n1":"b002.mp3","n2":"b003.mp3","n3":"b004.mp3","n4":"b005.mp3","n5":"b006.mp3","n6":"b007.mp3","n7":"b008.mp3","n8":"b009.mp3","n9":"b010.mp3","n10":"b011.mp3","n11":"b012.mp3","n12":"b013.mp3","n13":"b014.mp3","n14":"b015.mp3","n15":"b016.mp3","n16":"b017.mp3","n17":"b018.mp3","n18":"b019.mp3","n19":"b020.mp3","n20":"b021.mp3","jia":"b022.mp3","jian":"b023.mp3","dy":"b024.mp3"};
 var FOX_RATE = 0.90, FOX_PITCH = 1.40;
 
 var PRESETS = [
@@ -1441,7 +1470,7 @@ var FoxAudio = {
       if(p && p.catch) p.catch(function(){});
     }catch(e){}
   },
-  play: function(name, text){
+  play: function(name, text, onend){
     var a = FoxAudio.init();
     if(!a) return false;
     var fell = false;
@@ -1450,9 +1479,10 @@ var FoxAudio = {
       fell = true;
       try{ a.pause(); }catch(e){}
       Voice.speakSys(text);
+      if(onend) onend();
     };
     try{
-      a.onended = null;
+      a.onended = onend || null;
       a.onerror = fallback;
       a.src = FOX_BASE + name;
       try{ a.currentTime = 0; }catch(e){}
@@ -1552,6 +1582,63 @@ var Voice = {
   stop: function(){
     FoxAudio.stop();
     try{ window.speechSynthesis.cancel(); }catch(e){}
+  },
+  /* ---------- 题目朗读：排队播报，不打断引导词 ---------- */
+  taskQ: null, taskTimer: null,
+  busy: function(){
+    var a = FoxAudio.el;
+    if(a && !a.paused) return true;
+    try{ if(window.speechSynthesis && window.speechSynthesis.speaking) return true; }catch(e){}
+    return false;
+  },
+  task: function(item){
+    if(!Voice.on){ Voice.cancelTask(); return; }
+    Voice.taskQ = item;
+    if(!Voice.taskTimer){
+      Voice.taskTimer = setInterval(function(){ Voice._flushTask(); }, 900);
+    }
+  },
+  cancelTask: function(){
+    Voice.taskQ = null;
+    if(Voice.taskTimer){ clearInterval(Voice.taskTimer); Voice.taskTimer = null; }
+  },
+  _flushTask: function(){
+    if(!Voice.on){ Voice.cancelTask(); return; }
+    if(!Voice.taskQ || Voice.busy()) return;
+    var it = Voice.taskQ;
+    Voice.taskQ = null;
+    if(typeof it === "string"){
+      var name = Voice.clipOf(it);
+      if(name){ FoxAudio.play(name, it); return; }
+      Voice.speakSys(it);
+      return;
+    }
+    if(it && it.seq){
+      var clips = [], i, miss = false;
+      for(i = 0; i < it.seq.length; i++){
+        if(!it.seq[i]){ miss = true; break; }
+        clips.push(it.seq[i]);
+      }
+      if(miss){ Voice.speakSys(it.text); return; }
+      Voice._seq(clips, it.text);
+    }
+  },
+  _seq: function(names, text){
+    var a = FoxAudio.init();
+    if(!a){ Voice.speakSys(text); return; }
+    var i = 0;
+    var step = function(){
+      if(i >= names.length) return;
+      try{
+        a.onended = step;
+        a.onerror = null;
+        a.src = FOX_BASE + names[i++];
+        try{ a.currentTime = 0; }catch(e){}
+        var p = a.play();
+        if(p && p.catch) p.catch(function(){ Voice.speakSys(text); });
+      }catch(e){ Voice.speakSys(text); }
+    };
+    step();
   }
 };
 Voice.init();
@@ -1757,6 +1844,11 @@ var GUIDE = {
   ksort: ["这些形状混在一起了，我们帮它们回家。", "先看上面写的规则：这一关只看颜色，还是只看形状。", "一个标准分到底，别中途换想法，筐里就整整齐齐。"],
   kwhere: ["中间是小床。上面是抬头那一格，下面是脚边那一格。", "先认清左和右：你左手边是左，右手边是右。", "放对了小熊就坐上去。上下左右，身体比眼睛记得更牢。"],
   krule: ["这一关的规则写在最上面：点红色的。", "只点符合规则的，别的一律不动。规则随时会换，会突然变成三角形。", "眼睛先读规则，再动手。这样才不会点错。"],
+  calc: [
+    "听我念算式，再从下面四个牌子里挑一个对的，连对五题火箭就升一关。",
+    "第一关是十以内的加法。答错了没关系，小球提示会出来，数一数小球就知道。",
+    "四关分别是十以内加减法和二十以内的进位加、退位减。慢慢来，算准了再点。"
+  ],
   super: [
     "超市里的东西标着价钱。看看这些钱，凑出要付的数目。",
     "下面从 1 角到 100 元都有，点一下就放进收银盘。",
@@ -1840,7 +1932,7 @@ if(guideToggleEl) guideToggleEl.addEventListener("click", function(){
   Voice.on = !Voice.on;
   paintGuideToggle();
   if(Voice.on) Voice.say(guideSteps[guideIdx] || "语音开啦，听我讲怎么玩。", true);
-  else Voice.stop();
+  else { Voice.stop(); Voice.cancelTask(); }
 });
 if(guideBarEl) guideBarEl.addEventListener("pointerdown", function(){
   if(guideTimer) scheduleGuide();
@@ -2022,6 +2114,8 @@ barchart: '<svg viewBox="0 0 64 64" fill="none"><path d="M9 54h47" stroke="#2624
   kmaze: '<svg viewBox="0 0 76 76"><rect x="6" y="6" width="64" height="64" rx="10" fill="#F8F6FF" stroke="#26243C" stroke-width="2.4"/><path d="M6 26h34M40 26v18M22 44h40M22 44v22M12 12h26v14" fill="none" stroke="#3B3850" stroke-width="3.4"/><circle cx="20" cy="60" r="7" fill="#FFC53D" stroke="#26243C" stroke-width="2"/><path d="M64 52l-10 8h10z" fill="#FF7043" stroke="#26243C" stroke-width="2"/></svg>',
   kkeep: '<svg viewBox="0 0 76 76"><rect x="6" y="6" width="64" height="64" rx="10" fill="#FFFBF2" stroke="#26243C" stroke-width="2.4"/><path d="M14 30h26v18a6 6 0 0 1-6 6H20a6 6 0 0 1-6-6z" fill="#FFE9C9" stroke="#26243C" stroke-width="2.2"/><path d="M48 22h14v32a3 3 0 0 1-3 3h-8a3 3 0 0 1-3-3z" fill="#CFEBFF" stroke="#26243C" stroke-width="2.2"/><circle cx="22" cy="38" r="4" fill="#FFC53D" stroke="#26243C" stroke-width="1.6"/><circle cx="32" cy="44" r="4" fill="#FFC53D" stroke="#26243C" stroke-width="1.6"/><circle cx="54" cy="30" r="3.4" fill="#FFC53D" stroke="#26243C" stroke-width="1.6"/><circle cx="54" cy="42" r="3.4" fill="#FFC53D" stroke="#26243C" stroke-width="1.6"/></svg>',
   kcookie: '<svg viewBox="0 0 76 76"><rect x="6" y="6" width="64" height="64" rx="10" fill="#FFFCF1" stroke="#26243C" stroke-width="2.4"/><circle cx="22" cy="30" r="13" fill="#FFD166" stroke="#26243C" stroke-width="2.2"/><circle cx="19" cy="27" r="2.4" fill="#7A5230"/><circle cx="26" cy="32" r="2.4" fill="#7A5230"/><circle cx="54" cy="52" r="11" fill="#3FC49A" stroke="#26243C" stroke-width="2.2"/><circle cx="50" cy="50" r="2" fill="#26243C"/><circle cx="58" cy="50" r="2" fill="#26243C"/><path d="M48 57q6 4 12 0" fill="none" stroke="#26243C" stroke-width="2"/><path d="M36 40h10" stroke="#26243C" stroke-width="2.4"/><path d="M41 36l4 4-4 4" fill="#26243C"/></svg>',
+  calc: '<svg viewBox="0 0 64 64" fill="none"><path d="M32 6c7 5 11 13 11 22l-3 15H24l-3-15c0-9 4-17 11-22z" fill="#EFFBEA" stroke="#26243C" stroke-width="3" stroke-linejoin="round"/><circle cx="32" cy="24" r="5.5" fill="#FFC53D" stroke="#26243C" stroke-width="2.2"/><path d="M21 38l-9 10 10-1z" fill="#4FB6F2" stroke="#26243C" stroke-width="2.4" stroke-linejoin="round"/><path d="M43 38l9 10-10-1z" fill="#4FB6F2" stroke="#26243C" stroke-width="2.4" stroke-linejoin="round"/><path d="M28 50h8l-4 9z" fill="#FF7043" stroke="#26243C" stroke-width="2.2" stroke-linejoin="round"/></svg>',
+
   ksplit: '<svg viewBox="0 0 76 76"><rect x="6" y="6" width="64" height="64" rx="10" fill="#FFFBF2" stroke="#26243C" stroke-width="2.4"/><circle cx="38" cy="22" r="9" fill="#FF6A5A" stroke="#26243C" stroke-width="2.2"/><path d="M38 13v-5" stroke="#2E7D32" stroke-width="2.6"/><path d="M12 44h24v14a6 6 0 0 1-6 6h-12a6 6 0 0 1-6-6z" fill="#FFD9D4" stroke="#26243C" stroke-width="2.2"/><path d="M40 44h24v14a6 6 0 0 1-6 6h-12a6 6 0 0 1-6-6z" fill="#FFF0C9" stroke="#26243C" stroke-width="2.2"/><circle cx="22" cy="52" r="5" fill="#FF6A5A" stroke="#26243C" stroke-width="1.6"/><circle cx="28" cy="58" r="5" fill="#FF6A5A" stroke="#26243C" stroke-width="1.6"/><circle cx="52" cy="55" r="5" fill="#FF6A5A" stroke="#26243C" stroke-width="1.6"/></svg>',
   ksort: '<svg viewBox="0 0 76 76"><rect x="6" y="6" width="64" height="64" rx="10" fill="#F7FFFB" stroke="#26243C" stroke-width="2.4"/><path d="M10 40h26v22a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4z" fill="#FFD9D4" stroke="#26243C" stroke-width="2.2"/><path d="M40 40h26v22a4 4 0 0 1-4 4H44a4 4 0 0 1-4-4z" fill="#CFEBFF" stroke="#26243C" stroke-width="2.2"/><circle cx="23" cy="50" r="5" fill="#DD5C46" stroke="#26243C" stroke-width="1.6"/><rect x="28" y="56" width="9" height="9" rx="2" fill="#DD5C46" stroke="#26243C" stroke-width="1.6"/><circle cx="48" cy="50" r="5" fill="#4FB6F2" stroke="#26243C" stroke-width="1.6"/><rect x="56" y="56" width="9" height="9" rx="2" fill="#4FB6F2" stroke="#26243C" stroke-width="1.6"/><path d="M16 14h44v18H16z" fill="#FFF3D6" stroke="#26243C" stroke-width="2.2"/><path d="M22 24h10M38 24h10" stroke="#26243C" stroke-width="2"/></svg>',
   kwhere: '<svg viewBox="0 0 76 76"><rect x="6" y="6" width="64" height="64" rx="10" fill="#F3FBFF" stroke="#26243C" stroke-width="2.4"/><rect x="14" y="30" width="20" height="16" rx="3" fill="#FFE7C9" stroke="#26243C" stroke-width="1.8"/><rect x="14" y="14" width="20" height="12" rx="3" fill="#fff" stroke="#26243C" stroke-width="1.8"/><rect x="40" y="14" width="20" height="12" rx="3" fill="#fff" stroke="#26243C" stroke-width="1.8"/><rect x="40" y="30" width="20" height="16" rx="3" fill="#fff" stroke="#26243C" stroke-width="1.8"/><circle cx="22" cy="20" r="4" fill="#F6C97A" stroke="#26243C" stroke-width="1.6"/><path d="M50 58V42" stroke="#FF7043" stroke-width="3.4"/><path d="M50 38l-5 8h10z" fill="#FF7043" stroke="#26243C" stroke-width="1.6"/></svg>',
@@ -2238,6 +2332,7 @@ function buildKDigitMatch(api){
     S.ans = picks.indexOf(S.n);
     S.pick = -1;
     sync();
+    Voice.task("找出正好 " + S.n + " 个的那一堆");
   }
   function sync(){
     var s1 = el("#dmScore"); if(s1) s1.textContent = S.got + " / 5";
@@ -2368,6 +2463,7 @@ function buildKNeighbor(api){
     for(var k = list.length - 1; k > 0; k--){ var x = Math.floor(Math.random() * (k + 1)), t = list[k]; list[k] = list[x]; list[x] = t; }
     S.opts = list; S.left = null; S.right = null;
     sync();
+    Voice.task("给 " + S.n + " 找两个邻居");
   }
   function sync(){
     var s1 = el("#nbScore"); if(s1) s1.textContent = S.got + " / 4";
@@ -2451,6 +2547,7 @@ function buildKShapeHunt(api){
     S.total = S.cells.filter(function(o){ return o.kind === S.target; }).length;
     S.found = 0;
     sync();
+    Voice.task("点出所有的" + NAME[S.target]);
   }
   function sync(){
     var l1 = el("#shLeft"); if(l1) l1.textContent = (S.total - S.found) + " 个";
@@ -3289,6 +3386,7 @@ function buildKSplit(api){
     S.drag = -1;
     var g = el("#spGoal"); if(g) g.textContent = "左 " + S.target + " 右 " + (S.n - S.target);
     sync();
+    Voice.task("一共 " + S.n + " 个苹果，左边放 " + S.target + " 个");
   }
   function counts(){
     var L = S.apples.filter(function(a){ return a.side === 1; }).length;
@@ -3482,6 +3580,7 @@ function buildKWhere(api){
     var d = el("#whDir"); if(d) d.textContent = S.dir;
     var t = el("#whTip"); if(t) t.textContent = "把小熊放到小床的" + S.dir + "面";
     sync();
+    Voice.task("把小熊放到小床的" + S.dir + "面");
   }
   function sync(){
     var lv = el("#whLv"); if(lv) lv.textContent = Math.min(S.lv + 1, S.max) + " / " + S.max;
@@ -3566,6 +3665,7 @@ function buildKRuleSwitch(api){
     S.items.sort(function(){ return Math.random() - 0.5; });
     var t = el("#rsTip"); if(t) t.textContent = r.txt;
     sync();
+    Voice.task(r.txt);
   }
   function sync(){
     var lv = el("#rsLv"); if(lv) lv.textContent = Math.min(S.phase + 1, 3) + " / 3";
@@ -3918,7 +4018,10 @@ var TOOLS = [
   desc:"规则会突然换，眼睛要跟得上。", icon:IC.krule, build:buildKRuleSwitch },
 { id:"super", num:"37", name:"超市小收银", cat:"时间与钱", color:C.tomato, tint:"#FFE9CE",
   desc:"从 1 角硬币到 100 元纸币，照人民币的样子付钱、找钱。",
-  icon:IC.super, build:buildSuper }
+  icon:IC.super, build:buildSuper },
+{ id:"calc", num:"38", name:"加减法小火箭", cat:"数与代数", color:C.mint, tint:"#EFFBEA",
+  desc:"听算式挑答案：十以内加减，二十以内进位加、退位减，连闯四关。",
+  icon:IC.calc, build:buildCalc }
 ];
 
 /* ==================== 01 时钟 ==================== */
@@ -9192,6 +9295,160 @@ function buildAngle(api){
 }
 
 /* ==================== 35 找规律 ==================== */
+/* ==================== 38 加减法小火箭 ==================== */
+function buildCalc(api){
+  var stage = api.stage, panel = api.panel;
+  var S = { lv: 0, max: 4, per: 5, got: 0, q: null, opts: [], ans: 0, pick: -1,
+            dots: true, shake: 0, won: false };
+  stage.canvas.style.cursor = "pointer";
+
+  panel.innerHTML =
+    '<div class="p-title"><span class="bar" style="background:#3FC49A"></span>加减法小火箭</div>' +
+    '<div class="readout"><span class="k">第几关</span><span class="v" id="caLv">1 / 4</span></div>' +
+    '<div class="readout"><span class="k">答对</span><span class="v" id="caScore">0 / 20</span></div>' +
+    '<div class="btn-row"><button class="btn" id="caDots">小球提示：开</button><button class="btn primary" id="caNew">重新开始</button></div>' +
+    '<div class="target-card"><span class="tc-k">小嘉的挑战</span><span class="tc-big" id="caTip">听算式，点对的答案</span></div>' +
+    '<div class="hintbox"><span class="hb-icon">嘉</span><div>连对五题升一关：十以内加减、二十以内进位加、退位减。答错了小球会出来帮你数。</div></div>';
+
+  function gen(lv){
+    var a, b, op;
+    if(lv === 0){ op = "+"; a = 1 + Math.floor(Math.random() * 9); b = 1 + Math.floor(Math.random() * (10 - a)); }
+    else if(lv === 1){ op = "-"; a = 2 + Math.floor(Math.random() * 9); b = 1 + Math.floor(Math.random() * (a - 1)); }
+    else if(lv === 2){ op = "+"; do{ a = 3 + Math.floor(Math.random() * 7); b = 2 + Math.floor(Math.random() * 8); }while(a + b <= 10); }
+    else { op = "-"; a = 11 + Math.floor(Math.random() * 8); b = (a - 10) + 1 + Math.floor(Math.random() * (19 - a)); }
+    return { a: a, b: b, op: op, r: op === "+" ? a + b : a - b };
+  }
+  function shuffle(x){
+    for(var k = x.length - 1; k > 0; k--){
+      var j = Math.floor(Math.random() * (k + 1)), t = x[k]; x[k] = x[j]; x[j] = t;
+    }
+    return x;
+  }
+  function sayQ(){
+    var seq = [CALC_SND["n" + S.q.a], S.q.op === "+" ? CALC_SND.jia : CALC_SND.jian,
+               CALC_SND["n" + S.q.b], CALC_SND.dy];
+    Voice.task({ seq: seq, text: S.q.a + (S.q.op === "+" ? " 加 " : " 减 ") + S.q.b + " 等于几" });
+  }
+  function newQ(){
+    S.q = gen(S.lv);
+    var pool = [S.q.r - 1, S.q.r + 1, S.q.r - 2, S.q.r + 2, S.q.r - 10, S.q.r + 10]
+      .filter(function(v){ return v >= 0 && v <= 20 && v !== S.q.r; });
+    shuffle(pool);
+    var list = [S.q.r], i;
+    for(i = 0; i < pool.length && list.length < 4; i++) list.push(pool[i]);
+    list = shuffle(list);
+    S.opts = list; S.ans = list.indexOf(S.q.r); S.pick = -1;
+    var t = el("#caTip"); if(t) t.textContent = S.q.a + " " + S.q.op + " " + S.q.b + " = ？";
+    stage.render();
+    sayQ();
+  }
+  function sync(){
+    var l1 = el("#caLv"); if(l1) l1.textContent = (S.lv + 1) + " / " + S.max;
+    var s1 = el("#caScore"); if(s1) s1.textContent = S.got + " / " + (S.max * S.per);
+    stage.render();
+  }
+
+  stage.on("draw", function(c){
+    if(!S.q) return;
+    rrect(c, 56, 62, 888, 470, 24);
+    c.fillStyle = "#F2FBF6"; c.fill();
+    c.strokeStyle = INK; c.lineWidth = 3; c.stroke();
+
+    /* 火箭：飞多高 = 答对多少；右侧专属轨道，避开答案牌 */
+    var prog = (S.lv * S.per + (S.got % S.per)) / (S.max * S.per);
+    var ry = 480 - prog * 300, rx = 890;
+    c.save();
+    c.strokeStyle = "#C9E7D6"; c.lineWidth = 3; c.setLineDash([8, 8]);
+    c.beginPath(); c.moveTo(rx, 505); c.lineTo(rx, 140); c.stroke();
+    c.restore();
+    txt(c, "第 " + (S.lv + 1) + " 关", rx, 100, { size: 14, weight: 900, align: "center", color: SOFT });
+    c.save();
+    c.translate(rx, ry);
+    c.fillStyle = "#FFFFFF"; c.strokeStyle = INK; c.lineWidth = 2.6;
+    c.beginPath();
+    c.moveTo(0, -34); c.quadraticCurveTo(16, -10, 12, 22); c.lineTo(-12, 22);
+    c.quadraticCurveTo(-16, -10, 0, -34);
+    c.closePath(); c.fill(); c.stroke();
+    c.fillStyle = "#FFC53D";
+    c.beginPath(); c.arc(0, -6, 7, 0, Math.PI * 2); c.fill(); c.stroke();
+    c.fillStyle = "#4FB6F2";
+    c.beginPath(); c.moveTo(-12, 8); c.lineTo(-24, 26); c.lineTo(-12, 22); c.closePath(); c.fill(); c.stroke();
+    c.beginPath(); c.moveTo(12, 8); c.lineTo(24, 26); c.lineTo(12, 22); c.closePath(); c.fill(); c.stroke();
+    c.fillStyle = "#FF7043";
+    c.beginPath(); c.moveTo(-6, 22); c.lineTo(0, 38); c.lineTo(6, 22); c.closePath(); c.fill();
+    c.restore();
+
+    /* 算式（答错时左右晃） */
+    var eq = S.q.a + " " + S.q.op + " " + S.q.b + " = ?";
+    var sx = S.shake > 0 ? Math.sin(Date.now() / 22) * S.shake * 4 : 0;
+    if(S.shake > 0) S.shake -= 0.1;
+    txt(c, eq, 430 + sx, 152, { size: 56, weight: 900, align: "center", color: INK });
+
+    /* 小球提示 */
+    if(S.dots){
+      for(var i = 0; i < S.q.a; i++)
+        circle(c, 254 + ((i % 5) - 2) * 26, 212 + Math.floor(i / 5) * 26, 9, "#FF7043", INK, 1.6);
+      txt(c, S.q.op === "+" ? "加" : "拿走", 430, 220, { size: 16, weight: 900, align: "center", color: SOFT });
+      for(var j = 0; j < S.q.b; j++)
+        circle(c, 606 + ((j % 5) - 2) * 26, 212 + Math.floor(j / 5) * 26, 9, "#4FB6F2", INK, 1.6);
+    }
+
+    /* 四个答案牌 */
+    S.opts.forEach(function(v, idx){
+      var bx = 100 + idx * 200, by = 330;
+      rrect(c, bx, by, 160, 120, 18);
+      var st = S.pick === idx;
+      c.fillStyle = st ? (idx === S.ans ? "#E7F8F0" : "#FFE7EF") : "#FFFDF6";
+      c.fill();
+      c.strokeStyle = INK; c.lineWidth = st ? 3.4 : 2.4; c.stroke();
+      txt(c, String(v), bx + 80, by + 62, { size: 40, weight: 900, align: "center" });
+    });
+    txt(c, "点一个答案；答错了小球会出来帮你数", 500, 492, { size: 13, weight: 700, align: "center", color: "#B5AECB" });
+  });
+
+  stage.on("down", function(p){
+    if(p.y < 330 || p.y > 450) return;
+    for(var idx = 0; idx < 4; idx++){
+      var bx = 100 + idx * 200;
+      if(p.x > bx && p.x < bx + 160){
+        S.pick = idx;
+        if(idx === S.ans){
+          S.got++; Sound.right(); api.confetti(8);
+          if(S.got >= S.max * S.per){
+            if(!S.won){ S.won = true; api.win("四关全过！加法减法都难不倒你了。"); }
+          } else if(S.got % S.per === 0 && S.lv < S.max - 1){
+            S.lv++; api.toast("升级啦！火箭飞到第 " + (S.lv + 1) + " 关");
+          }
+          sync();
+          setTimeout(newQ, 950);
+        } else {
+          Sound.wrong(); S.shake = 1;
+          if(!S.dots){
+            S.dots = true;
+            var b0 = el("#caDots"); if(b0) b0.textContent = "小球提示：开";
+            api.toast("小球出来帮你数一数");
+          }
+          sync();
+        }
+        return;
+      }
+    }
+  });
+
+  var bDots = el("#caDots"), bNew = el("#caNew");
+  if(bDots) bDots.addEventListener("click", function(){
+    S.dots = !S.dots; Sound.tick();
+    bDots.textContent = "小球提示：" + (S.dots ? "开" : "关");
+    stage.render();
+  });
+  if(bNew) bNew.addEventListener("click", function(){
+    Sound.tick(); S.lv = 0; S.got = 0; S.won = false; sync(); newQ();
+  });
+
+  sync();
+  newQ();
+}
+
 function buildRule(api){
   var stage = api.stage, panel = api.panel;
   var QS = [
