@@ -218,11 +218,13 @@ ol,ul{list-style:none}
   position:absolute;top:-7px;left:11px;font-size:9px;font-weight:800;color:#2A2622;
   background:var(--amber);border-radius:99px;padding:1px 7px;letter-spacing:.04em;
 }
-/* 幼小衔接学习平台：标题直达、网址可点可复制、二维码可放大 */
+/* 幼小衔接学习平台 / 数学玩具箱：标题直达、汉字按钮可点可复制、二维码可放大 */
 .ag-item.ag-live{
   padding-right:52px;border-color:#C9DACD;
   background:linear-gradient(160deg,#FFFFFF,#F4FAF6);
 }
+.ag-item.ag-full{grid-column:1 / -1;flex-direction:row;align-items:baseline;flex-wrap:wrap;column-gap:9px;row-gap:2px}
+.ag-item.ag-full em{margin-top:0;padding-top:0}
 .ag-qr{
   position:absolute;top:9px;right:9px;width:38px;height:38px;
   border-radius:7px;background:#fff;border:1px solid var(--line);
@@ -236,13 +238,16 @@ ol,ul{list-style:none}
 .ag-title-link::after{content:" ↗";font-size:10px;color:var(--green);font-weight:800}
 .ag-live .ag-urlrow,.ag-live em{margin-right:-42px}
 .ag-urlrow{display:flex;align-items:center;gap:5px;margin-top:1px}
-.ag-url{
-  flex:1;min-width:0;font-family:var(--font-en);font-size:10px;font-weight:700;
-  color:var(--deep);text-decoration:none;background:#EDF5EF;border:1px solid #D5E6DA;
-  border-radius:7px;padding:3px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  -webkit-user-select:all;user-select:all;
+/* 汉字直达按钮：不再暴露网址原文，点文字即跳转 */
+.ag-cta{
+  flex:1 1 auto;min-width:0;display:block;text-align:center;
+  font-size:10.5px;font-weight:800;color:var(--deep);text-decoration:none;
+  background:#EDF5EF;border:1px solid #D5E6DA;border-radius:7px;padding:4px 6px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  transition:background .16s,border-color .16s,color .16s;
 }
-.ag-url:hover{background:#DCEFE2;border-color:#A9CFBA}
+.ag-cta:hover{background:#DCEFE2;border-color:#A9CFBA;color:#1B5E45}
+.ag-cta:active{background:#CDE7D8}
 .ag-copy{
   flex:0 0 auto;font-family:var(--font-cn);font-size:9.5px;font-weight:800;
   color:#fff;background:var(--green);border:0;border-radius:7px;
@@ -9909,22 +9914,35 @@ if(window.ResizeObserver){
         <p>人教三上–六下 64 课，加演讲和电影台词，每天 6 句。</p>
         <em>免费 · 不用注册</em>
       </div>
+      <div class="ag-item">
+        <span class="ag-tag" style="background:#EDE4D3;color:#6E5B3C">即将上线</span>
+        <b>小学学习平台</b>
+        <p>跟着课本进度，一课一课过，敬请期待。</p>
+        <em>正在做 · 敬请期待</em>
+      </div>
       <div class="ag-item ag-live">
         <span class="ag-tag" style="background:#DCEBE4;color:#1F3B33">双伴成长</span>
-        <img class="ag-qr" src="assets/brand/youxiao-qr.png" alt="幼小衔接学习平台二维码" title="点二维码可放大">
+        <img class="ag-qr" src="assets/brand/youxiao-qr.png" alt="幼小衔接学习平台二维码" title="点二维码可放大" data-cap="幼小衔接学习平台 · 微信/相机扫码进入 · 点任意处关闭">
         <b><a class="ag-title-link" href="http://1.15.61.89/t" target="_blank" rel="noopener noreferrer">幼小衔接学习平台</a></b>
         <p>3–7 岁入学准备，双伴成长理论真正落地的地方。</p>
         <div class="ag-urlrow">
-          <a class="ag-url" href="http://1.15.61.89/t" target="_blank" rel="noopener noreferrer" title="点链接直接打开，也可长按选中复制">http://1.15.61.89/t</a>
-          <button type="button" class="ag-copy" id="copyYouxiao">复制</button>
+          <a class="ag-cta" href="http://1.15.61.89/t" target="_blank" rel="noopener noreferrer">点这里打开幼小衔接平台</a>
+          <button type="button" class="ag-copy" data-url="http://1.15.61.89/t">复制</button>
         </div>
-        <em>点标题或网址直接打开 · 二维码可放大扫码</em>
+        <em>点标题或按钮直接打开 · 二维码可放大</em>
       </div>
-      <div class="ag-item">
-        <b>小学学习平台</b>
-        <p>跟着课本进度，一课一课过。</p>
+      <div class="ag-item ag-live">
+        <span class="ag-tag" style="background:#DCEBE4;color:#1F3B33">已上线</span>
+        <img class="ag-qr" src="assets/brand/math-qr.png" alt="数学玩具箱二维码" title="点二维码可放大" data-cap="数学玩具箱 · 微信/相机扫码进入 · 点任意处关闭">
+        <b><a class="ag-title-link" href="https://dovelge.github.io/jiaxi-typing-lab/math/" target="_blank" rel="noopener noreferrer">数学玩具箱</a></b>
+        <p>36 件能动手的数学玩具，小学 1–6 年级，先动手再想为什么。</p>
+        <div class="ag-urlrow">
+          <a class="ag-cta" href="https://dovelge.github.io/jiaxi-typing-lab/math/" target="_blank" rel="noopener noreferrer">点这里打开数学玩具箱</a>
+          <button type="button" class="ag-copy" data-url="https://dovelge.github.io/jiaxi-typing-lab/math/">复制</button>
+        </div>
+        <em>免费 · 不用注册 · 玩对了亮一颗星</em>
       </div>
-      <div class="ag-item">
+      <div class="ag-item ag-full">
         <span class="ag-tag" style="background:#EDE4D3;color:#6E5B3C">即将推出</span>
         <b>孩子的 AI 启蒙教育</b>
         <p>让孩子学会跟 AI 一起想，而不是让 AI 替他想。</p>
@@ -9980,9 +9998,8 @@ if(window.ResizeObserver){
   const zoomImg = zoom ? zoom.querySelector("img") : null;
   const zoomCap = zoom ? zoom.querySelector("p") : null;
   const wxQr = modal ? modal.querySelector(".ac-qr") : null;
-  const yxQr = modal ? modal.querySelector(".ag-qr") : null;
-  const copyBtn = document.getElementById("copyYouxiao");
-  const YX_URL = "http://1.15.61.89/t";
+  const liveQrs = modal ? Array.prototype.slice.call(modal.querySelectorAll(".ag-qr")) : [];
+  const copyBtns = modal ? Array.prototype.slice.call(modal.querySelectorAll(".ag-copy")) : [];
   if(!modal || !openBtn) return;
   function open(){ modal.classList.add("open"); }
   function close(){ modal.classList.remove("open"); }
@@ -10002,9 +10019,12 @@ if(window.ResizeObserver){
     e.stopPropagation();
     showZoom(wxQr, "扫一扫加我 · 账号 JXTX09 · 点任意处关闭");
   });
-  if(yxQr) yxQr.addEventListener("click", function(e){
-    e.stopPropagation();
-    showZoom(yxQr, "幼小衔接学习平台 · 微信/相机扫码进入 · 点任意处关闭");
+  /* 幼小衔接 / 数学玩具箱 两张码共用一个放大层，说明文字取自各自的 data-cap */
+  liveQrs.forEach(function(img){
+    img.addEventListener("click", function(e){
+      e.stopPropagation();
+      showZoom(img, img.getAttribute("data-cap") || "扫一扫进入 · 点任意处关闭");
+    });
   });
   if(zoom) zoom.addEventListener("click", zoomOff);
 
@@ -10020,29 +10040,32 @@ if(window.ResizeObserver){
     document.body.removeChild(ta);
     return ok;
   }
-  function feedback(ok){
-    if(!copyBtn) return;
-    copyBtn.textContent = ok ? "已复制 ✓" : "请长按网址复制";
-    copyBtn.classList.toggle("done", ok);
+  function feedback(btn, ok){
+    if(!btn) return;
+    btn.textContent = ok ? "已复制 ✓" : "复制失败";
+    btn.classList.toggle("done", ok);
     if(typeof window.toast === "function"){
-      window.toast(ok ? "链接已复制，粘贴到浏览器即可打开" : "请长按网址手动复制");
+      window.toast(ok ? "链接已复制，粘贴到浏览器即可打开" : "复制失败，请再点一次");
     }
     setTimeout(function(){
-      copyBtn.textContent = "复制";
-      copyBtn.classList.remove("done");
+      btn.textContent = "复制";
+      btn.classList.remove("done");
     }, 2000);
   }
-  if(copyBtn) copyBtn.addEventListener("click", async function(e){
-    e.stopPropagation();
-    let ok=false;
-    try{
-      if(navigator.clipboard && navigator.clipboard.writeText){
-        await navigator.clipboard.writeText(YX_URL);
-        ok=true;
-      }
-    }catch(err){}
-    if(!ok) ok=fallbackCopy(YX_URL);
-    feedback(ok);
+  copyBtns.forEach(function(btn){
+    btn.addEventListener("click", async function(e){
+      e.stopPropagation();
+      const url = btn.getAttribute("data-url") || "";
+      let ok=false;
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          await navigator.clipboard.writeText(url);
+          ok=true;
+        }
+      }catch(err){}
+      if(!ok) ok=fallbackCopy(url);
+      feedback(btn, ok);
+    });
   });
 
   document.addEventListener("keydown", function(e){
