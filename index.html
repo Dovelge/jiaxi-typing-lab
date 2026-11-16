@@ -8169,6 +8169,11 @@ function toast(msg){
 try{ if(navigator.audioSession) navigator.audioSession.type = "ambient"; }catch(e){}
 
 let audioCtx=null, audioReviveTimer=0;
+let __audioKeepAlive=null;    /* 静音保活节点：占住音频线程，别让空闲的上下文被浏览器挂起 */
+let __audioBadPlays=0;        /* 连续几次按键时上下文都没在跑 */
+let __audioRebuildAt=0;       /* 上次重建时间：失败时也别疯狂重建 */
+let __audioRebuildTimer=0;    /* 重建被节流时排的补做定时器 */
+
 function createCtx(){
   const AC=window.AudioContext||window.webkitAudioContext;
   if(!AC) return null;
@@ -8179,18 +8184,78 @@ function createCtx(){
       const src=c.createBufferSource();
       src.buffer=b; src.connect(c.destination); src.start(0);
     }catch(e){}
+    /* 状态一变就处理：被系统打断（换音频设备、休眠、被别的程序独占）
+       的当下就发现，而不是等孩子按下一键才发觉没声 */
+    try{
+      c.onstatechange=function(){
+        try{
+          if(c!==audioCtx) return;
+          if(c.state==="closed"){ audioCtx=null; return; }
+          if(c.state!=="running") reviveAudio();
+        }catch(e){}
+      };
+    }catch(e){}
     return c;
   }catch(e){ return null; }
 }
 function ensureAudio(){
   try{
-    if(!audioCtx || audioCtx.state==="closed") audioCtx=createCtx();
+    if(audioCtx && audioCtx.state==="closed"){ audioCtx=null; __audioKeepAlive=null; }
+    if(!audioCtx) audioCtx=createCtx();
     if(!audioCtx) return null;
     if(audioCtx.state!=="running"){ try{ audioCtx.resume().catch(()=>{}); }catch(e){} }
     return audioCtx;
   }catch(e){ return null; }
 }
-/* 被系统打断（朗读抢通道 / 切后台 / 来电）后自动救回来：先 resume，还不行就重建 */
+function _keepAliveOff(){
+  try{ if(__audioKeepAlive && __audioKeepAlive.src) __audioKeepAlive.src.stop(); }catch(e){}
+  __audioKeepAlive=null;
+}
+/* 静音占位：1 秒静音缓冲循环播，增益 0。它不发声，只是让音频图一直有活节点 */
+function keepAlive(ctx){
+  try{
+    if(!ctx || ctx.state!=="running") return;
+    if(__audioKeepAlive && __audioKeepAlive.ctx===ctx) return;
+    _keepAliveOff();
+    const b=ctx.createBuffer(1, Math.max(1, Math.round(ctx.sampleRate*0.25)), ctx.sampleRate||44100);
+    const s=ctx.createBufferSource();
+    const g=ctx.createGain();
+    g.gain.value=0;
+    s.buffer=b; s.loop=true;
+    s.connect(g); g.connect(ctx.destination);
+    s.start(0);
+    __audioKeepAlive={src:s, gain:g, ctx:ctx};
+  }catch(e){}
+}
+/* 彻底重建：上下文被系统弄成半死状态时，新建一个最干净。
+   3 秒内只重建一次 —— 万一设备真的没了、新建也跑不起来，别陷进反复重建 */
+function rebuildAudio(){
+  try{
+    const now=Date.now();
+    const gap=now-__audioRebuildAt;
+    if(gap < 3000){
+      /* 刚重建过：先不折腾，但排一个到点的重试，别让上下文就此躺平 */
+      if(!__audioRebuildTimer && audioCtx && audioCtx.state!=="running"){
+        __audioRebuildTimer=setTimeout(function(){
+          __audioRebuildTimer=0;
+          try{ if(!audioRunning()) rebuildAudio(); }catch(e){}
+        }, 3000-gap+50);
+      }
+      return audioCtx;
+    }
+    __audioRebuildAt=now;
+    const old=audioCtx;
+    _keepAliveOff();
+    audioCtx=null;
+    try{ if(old && old.state!=="closed") old.close(); }catch(e){}
+    audioCtx=createCtx();
+    try{ if(audioCtx && audioCtx.state!=="running"){ const q=audioCtx.resume(); if(q&&q.catch) q.catch(()=>{}); } }catch(e){}
+    /* 旧上下文解出来的 buffer 在新上下文里不能用：把当前音色的字母重新解码一遍 */
+    try{ preloadLetters(); }catch(e){}
+    return audioCtx;
+  }catch(e){ return null; }
+}
+/* 被系统打断（朗读抢通道 / 切后台 / 换设备 / 来电）后自动救回来：先 resume，还不行就重建 */
 function reviveAudio(){
   try{
     if(!audioCtx){ ensureAudio(); return; }
@@ -8199,15 +8264,12 @@ function reviveAudio(){
     if(audioReviveTimer) return;
     audioReviveTimer=setTimeout(function(){
       audioReviveTimer=0;
-      try{
-        if(audioCtx && audioCtx.state!=="running"){
-          try{ audioCtx.close(); }catch(e){}
-          audioCtx=createCtx();
-          try{ if(audioCtx) audioCtx.resume(); }catch(e){}
-        }
-      }catch(e){}
+      try{ if(audioCtx && audioCtx.state!=="running") rebuildAudio(); }catch(e){}
     },240);
   }catch(e){}
+}
+function audioRunning(){
+  try{ return !!(audioCtx && audioCtx.state==="running"); }catch(e){ return false; }
 }
 ["pointerdown","touchstart","keydown","click"].forEach(ev=>{
   document.addEventListener(ev,reviveAudio,{capture:true,passive:true});
@@ -8223,7 +8285,14 @@ function reviveAudio(){
     }catch(e2){}
   },{capture:true,passive:true});
 });
-document.addEventListener("visibilitychange",function(){ if(!document.hidden) reviveAudio(); });
+document.addEventListener("visibilitychange",function(){
+  if(document.hidden){ _keepAliveOff(); return; }   /* 切走就放掉音频线程，省电 */
+  reviveAudio();
+  /* 切回来时上下文常常还挂在挂起状态：给 resume 一点时间，不行就重建 */
+  setTimeout(function(){ try{ if(!audioRunning()) rebuildAudio(); }catch(e){} },300);
+});
+window.addEventListener("focus", function(){ reviveAudio(); });
+window.addEventListener("pageshow", function(){ reviveAudio(); });
 
 function tone(freq,dur,type,vol,force){
   if(!settings.sound && !force) return;
@@ -8334,34 +8403,52 @@ function _sfxBuffer(ctx, name){
     return b;
   }catch(e){ return null; }
 }
-/* 极端情况兜底：连 AudioContext 都拿不到（老浏览器/隐私模式）时，
-   退回原来的 <audio> 方式，至少还有声 */
+/* 极端情况兜底：AudioContext 拿不到、或被系统弄成暂停时，用 <audio> 立即出声。
+   每个音效准备 3 个元素轮着用 —— 同一个元素刚播完就 seek 回 0 会打断下一次 play()
+   （AbortError，就是「这一下没声」），轮转就绕开了这个竞态。 */
+const SFX_POOL = {};  /* name -> {els:[], i:0} */
 function _playSfxFallback(name){
   try{
     let url=SFX_SRC[name];
     if(url===undefined){ url=SFX_SRC[name]=_sfxMake(name); }
-    if(!url) return;
-    let el=SFX_ELS[name];
-    if(!el){
-      el=SFX_ELS[name]=new Audio(url);
-      el.preload="auto";
-      el.setAttribute("playsinline","");
-      el.volume=(name.indexOf("key_")===0) ? 0.62 : 0.78;
+    if(!url) return false;
+    let pool=SFX_POOL[name];
+    if(!pool){
+      pool=SFX_POOL[name]={els:[], i:0};
+      for(let k=0;k<3;k++){
+        const el=new Audio(url);
+        el.preload="auto";
+        el.setAttribute("playsinline","");
+        el.volume=(name.indexOf("key_")===0) ? 0.62 : 0.78;
+        pool.els.push(el);
+      }
     }
-    if(el.paused || el.ended){ try{ el.currentTime=0; }catch(e){} }
+    const el=pool.els[pool.i=(pool.i+1)%pool.els.length];
+    try{ el.currentTime=0; }catch(e){}
     const p=el.play();
     if(p && p.catch) p.catch(()=>{});
-  }catch(e){}
+    return true;
+  }catch(e){ return false; }
 }
 function playSfx(name, force){
   if(!settings.sound && !force) return;
   try{
     const ctx=ensureAudio();
-    if(!ctx){ _playSfxFallback(name); return; }
+    /* 上下文没在跑（系统挂起 / 换过音频设备 / 被别的程序抢占）：
+       这一下先走 <audio> 立即出声，同时后台救上下文 —— 绝不让按键安静地过去 */
+    if(!ctx || ctx.state!=="running"){
+      __audioBadPlays++;
+      if(!_playSfxFallback(name)) return;
+      reviveAudio();
+      if(__audioBadPlays>=3){ __audioBadPlays=0; rebuildAudio(); }
+      keepAlive(audioCtx);
+      return;
+    }
+    __audioBadPlays=0;
     let rec=SFX_BUF[name];
     if(!(rec && rec.c===ctx && rec.b)){
       const b=_sfxBuffer(ctx, name);
-      if(!b) return;
+      if(!b){ _playSfxFallback(name); return; }
       rec=SFX_BUF[name]={b:b,c:ctx};
     }
     const g=ctx.createGain();
@@ -8370,9 +8457,13 @@ function playSfx(name, force){
     const src=ctx.createBufferSource();
     src.buffer=rec.b;
     src.connect(g); g.connect(ctx.destination);
+    /* 播完就断链：一节课上千次按键，节点不释放迟早拖垮音频线程 */
+    src.onended=function(){ try{ src.disconnect(); g.disconnect(); }catch(e){} };
     src.start(0);
-    try{ if(ctx.state!=="running"){ const q=ctx.resume(); if(q&&q.catch) q.catch(()=>{}); } }catch(e){}
-  }catch(e){}
+    keepAlive(ctx);
+  }catch(e){
+    try{ _playSfxFallback(name); }catch(e2){}
+  }
 }
 function buzz(pattern){
   try{ if(navigator.vibrate) navigator.vibrate(pattern); }catch(e){}
@@ -8709,6 +8800,21 @@ function letterSet(){
   const k=(voiceCfg && voiceCfg.letter) || "ava";
   return LETTER_SETS[k] || LETTER_SETS.ava;
 }
+/* 字母音频的 <audio> 通道：每次新建元素、不 seek，避开「seek 把 play 打断」的 AbortError */
+function _letterByElement(url, rate){
+  try{
+    const el=new Audio(url);
+    el.preload="auto";
+    el.setAttribute("playsinline","");
+    el.volume=1;
+    try{ el.playbackRate=rate; }catch(e){}
+    if(__lastLetterEl){ try{ __lastLetterEl.pause(); }catch(e){} }
+    __lastLetterEl=el;
+    const p=el.play();
+    if(p && p.catch) p.catch(()=>{});
+    return true;
+  }catch(e){ return false; }
+}
 function playLetterAudio(ch){
   const vk=(voiceCfg && voiceCfg.letter) || "ava";
   const set=LETTER_SETS[vk] || LETTER_SETS.ava;
@@ -8723,7 +8829,7 @@ function playLetterAudio(ch){
     if(!(rec && rec.c===ctx && rec.b)) decodeLetter(key, url);   /* 没解过或 ctx 换过：先解，这次走兜底 */
     const buf=(rec && rec.c===ctx) ? rec.b : null;
     if(buf){
-      const fire=function(){
+      if(ctx.state==="running"){
         try{
           /* 同一时刻只响一个字母：打太快截断上一个，别糊成一片 */
           if(__lastLetterSrc){ try{ __lastLetterSrc.stop(); }catch(e){} __lastLetterSrc=null; }
@@ -8734,35 +8840,19 @@ function playLetterAudio(ch){
           src.onended=function(){ if(__lastLetterSrc===src) __lastLetterSrc=null; };
           src.start(0);
           __lastLetterSrc=src;
+          keepAlive(ctx);
+          return true;
         }catch(e){ try{ delete LETTER_BUF[key]; }catch(e2){} }
-      };
-      if(ctx.state==="running"){ fire(); return true; }
-      /* 通道被系统挂起（锁屏、切后台、来电后回来）：等 resume 完成再响，
-         最多等 60ms，超时也照常排进去 —— 宁可慢一拍，也不能吞掉这个字母 */
-      let fired=false;
-      const once=function(){ if(fired) return; fired=true; fire(); };
-      try{
-        const q=ctx.resume();
-        if(q && q.then){ q.then(once).catch(once); } else { once(); }
-      }catch(e){ once(); }
-      setTimeout(once, 60);
-      return true;
+      }else{
+        /* 通道被系统挂起：不要再等 resume 了（等不到就是静音），
+           当场用同一份字母音频走 <audio> 出声，后台再把上下文救回来 */
+        reviveAudio();
+        if(_letterByElement(url, rate)) return true;
+      }
     }
   }
-  /* 兜底：buffer 还没解码好（刚进页面的头几个字母）。每次新建元素、不 seek，
-     这样就不会出现「seek 把 play 打断」的 AbortError */
-  try{
-    const el=new Audio(url);
-    el.preload="auto";
-    el.setAttribute("playsinline","");
-    el.volume=1;
-    try{ el.playbackRate=rate; }catch(e){}
-    if(__lastLetterEl){ try{ __lastLetterEl.pause(); }catch(e){} }
-    __lastLetterEl=el;
-    const p=el.play();
-    if(p && p.catch) p.catch(()=>{});
-    return true;
-  }catch(e){ return false; }
+  /* 兜底：buffer 还没解码好（刚进页面的头几个字母），或 WebAudio 完全不可用 */
+  return _letterByElement(url, rate);
 }
 function preloadLetters(){ try{ primeLetterBuffers((voiceCfg && voiceCfg.letter) || "ava"); }catch(e){} }
 /* 空闲时把 6 套音色分批解码好（每套 26 个、约 1MB 内存），这样切音色后
