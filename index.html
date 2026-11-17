@@ -8505,6 +8505,37 @@ function pickVoice(){
   const prefer = en.find(v=>/en-US/i.test(v.lang) && /(female|samantha|zira|aria|jenny|ava|allison|susan)/i.test(v.name));
   return prefer || en.find(v=>/en-US/i.test(v.lang)) || en[0] || null;
 }
+/* 把长句按 ≤72 字符且 ≤18 词切成朗读小段：部分浏览器对长 utterance 会念到一半静默截断
+   （表现就是"只念前两三个单词"），切段后逐段排队，一段被截不影响后面的段 */
+function chunkSpeech(text){
+  const words=String(text||"").split(/\s+/).filter(Boolean);
+  if(!words.length) return [String(text||"")];
+  if(words.length<=18 && String(text).length<=72) return [String(text)];
+  const out=[]; let cur="";
+  for(const w of words){
+    const cand = cur ? cur+" "+w : w;
+    if(cand.length>72 || cand.split(/\s+/).length>18){ if(cur) out.push(cur); cur=w; }
+    else cur=cand;
+  }
+  if(cur) out.push(cur);
+  return out;
+}
+function mkSpeechU(t, v, isLast){
+  const u = new SpeechSynthesisUtterance(t);
+  if(v) u.voice = v;
+  u.lang = (v && v.lang) ? v.lang : "en-US";
+  u.rate = clampRate(voiceCfg.rate || 1);
+  u.pitch = Number(voiceCfg.pitch) || 1.04;
+  u.onstart = ()=>{ __speakStarted=true; };
+  u.onend   = ()=>{ try{ reviveAudio(); }catch(e){} if(isLast){ __autoSpeakPlaying=false; } };
+  u.onerror = ()=>{ try{ reviveAudio(); }catch(e){} if(isLast){ __autoSpeakPlaying=false; } };
+  u.onpause = ()=>{ try{ speechSynthesis.resume(); }catch(e){} };   /* Chrome/Edge 偶发把队列挂起，立刻续上 */
+  return u;
+}
+function speakChunks(chunks, v){
+  const last=chunks.length-1;
+  chunks.forEach(function(t,idx){ speechSynthesis.speak(mkSpeechU(t, v, idx===last)); });
+}
 function speak(){
   __needAutoSpeak=false;          /* 手动/自动朗读都算已读，别重复补读 */
   const item = LESSONS[state.li].items[state.si];
@@ -8513,20 +8544,31 @@ function speak(){
   const text = state.target;
   try{
     speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
+    const chunks = chunkSpeech(text);
     const v = pickVoice();
-    if(v) u.voice = v;
-    u.lang = (v && v.lang) ? v.lang : "en-US";
-    u.rate = clampRate(voiceCfg.rate || 1);
-    u.pitch = Number(voiceCfg.pitch) || 1.04;
+    __speakStarted=false;
     __autoSpeakPlaying = true;
     clearTimeout(__autoSpeakTimer);
-    __autoSpeakTimer = setTimeout(function(){ __autoSpeakPlaying=false; }, 12000);  /* 兜底：onend 没回来也要解锁 */
-    u.onend = ()=>{ __autoSpeakPlaying=false; try{ reviveAudio(); }catch(e){} };
-    u.onerror = ()=>{ __autoSpeakPlaying=false; try{ reviveAudio(); }catch(e){} };
-    speechSynthesis.speak(u);
+    __autoSpeakTimer = setTimeout(function(){ __autoSpeakPlaying=false; }, 12000 + chunks.length*5000);  /* 兜底：onend 没回来也要解锁 */
+    speakChunks(chunks, v);
+    setTimeout(function(){          /* watchdog：2 秒还没出声（引擎静默失败）就整段重试一次 */
+      if(!__speakStarted){
+        try{ speechSynthesis.cancel(); __speakStarted=false; speakChunks(chunks, v); }catch(e){}
+      }
+    }, 2000);
   }catch(e){ __autoSpeakPlaying=false; toast("朗读失败，请检查系统语音包"); }
 }
+/* 浏览器偶发把语音合成队列或音频上下文挂起（切后台/锁屏/系统省电）：
+   回到前台、任意点击时都救一下 —— 修复"打着打着莫名没声音" */
+let __speakStarted=false;
+document.addEventListener("visibilitychange",function(){
+  if(document.hidden) return;
+  try{ reviveAudio(); }catch(e){}
+  try{ if(speechSynthesis.paused) speechSynthesis.resume(); }catch(e){}
+});
+window.addEventListener("pointerdown",function(){
+  try{ if(window.speechSynthesis && speechSynthesis.paused) speechSynthesis.resume(); }catch(e){}
+},true);
 
 /* 播放分离出来的人声片段，结束后回调 */
 let curClip=null;
