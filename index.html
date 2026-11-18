@@ -9939,7 +9939,9 @@ renderCourseList();
 renderToday();
 renderBook();
 loadLesson(0,0);
-openCat = null; openGrade = null; renderCourseList();   /* 启动加载首课内容，但左栏保持全折叠，想开再开 */
+openCat = "textbook";
+openGrade = (LESSONS[0] && LESSONS[0].grade) || "g3a";
+renderCourseList();   /* 启动即展开教材列表，避免只看到分类标题以为教材缺失 */
 applyKbCfg();
 
 /* ===== 真实可视高度：解决 100vh 比可见区域大导致必须下滑的问题 ===== */
