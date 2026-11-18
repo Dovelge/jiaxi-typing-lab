@@ -178,6 +178,8 @@ ol,ul{list-style:none}
 
 /* ===== 左栏：学习工具独立入口（与英语跟打台并列，不混淆） ===== */
 .tool-nav{margin:0 0 12px;padding:0 2px 10px;border-bottom:1px solid rgba(255,255,255,.12)}
+/* 独立版：无学习工具切换栏，品牌与课程之间补分隔线 */
+.course-nav{padding-top:10px;border-top:1px solid rgba(255,255,255,.12)}
 .tool-item{
   display:flex;align-items:center;gap:9px;margin-top:6px;padding:7px 9px;border-radius:11px;
   border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);
@@ -1076,18 +1078,7 @@ body.kb3d .keyboard[data-hint="D"] .key.next::after{
       </div>
     </div>
 
-    <nav class="tool-nav">
-      <p class="rail-label">学习工具 <span>TOOLS</span></p>
-      <a class="tool-item" href="index.html" title="返回英语跟打台">
-        <span class="tool-ico">Aa</span>
-        <span class="tool-name">英语跟打台<small>ENGLISH TYPING LAB</small></span>
-      </a>
-      <div class="tool-item on" aria-current="page">
-        <span class="tool-ico">拼</span>
-        <span class="tool-name">拼音跟打台<small>PINYIN TYPING LAB</small></span>
-        <span class="tool-now">当前</span>
-      </div>
-    </nav>
+
 
     <nav class="course-nav">
       <p class="rail-label">课程 <span>COURSES</span></p>
