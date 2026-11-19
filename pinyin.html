@@ -732,6 +732,7 @@ body.kbhaptic:not(.kb3d) .key.press{animation:keyTap .16s ease}
 /* ===== 音色设置（弹出面板） ===== */
 .voice-cfg{width:min(404px,92vw)}
 .ts-pill .kbset-btn + .kbset-btn{margin-left:4px}
+.build-tag{font-family:var(--font-en);font-size:10px;font-weight:700;letter-spacing:.04em;color:#9A8A72;background:#F4EADA;border:1px solid #E6D6BC;border-radius:99px;padding:2px 8px}
 .vrow-top{align-items:flex-start}
 .vrow-top > span{padding-top:5px}
 .voice-list{gap:5px;max-height:126px;overflow-y:auto;overscroll-behavior:contain;padding:1px 3px 1px 1px}
@@ -1129,6 +1130,7 @@ body.kb3d .keyboard[data-hint="D"] .key.next::after{
         </div>
       </div>
       <div class="topbar-right">
+        <span class="build-tag" id="buildTag">v11-20·02</span>
         <span class="practice-chip"><i></i>练习模式</span>
         <div class="mode-switch" id="modeSwitch">
           <button type="button" data-mode="look" class="on">跟打模式</button>
@@ -1163,7 +1165,6 @@ body.kb3d .keyboard[data-hint="D"] .key.next::after{
       <div class="ts-right">
         <button type="button" class="mini-toggle on" id="zhToggle"><i></i>显示中文释义</button>
         <button type="button" class="mini-toggle on" id="soundMini"><i></i>按键音效</button>
-        <button type="button" class="mini-toggle" id="letterVoice"><i></i>读拼音</button>
       </div>
 
       <div class="kbcfg" id="kbcfg" hidden>
@@ -1554,7 +1555,7 @@ const els = {
 /* ========== 设置与存档 ========== */
 const SAVE_KEY = "jixi-pinyin-v1";
 /* 按键音效 / 读字母 互斥：可以同时关，不能同时开（朗读会抢音频通道，两者一起开会互相吃掉） */
-const settings = { sound:true, letterVoice:true };   /* 按键读拼音音素，默认开 */
+const settings = { sound:true, letterVoice:false };  /* 按键不再念字母：只在打完一个字时读完整拼读 */
 
 /* 朗读音色（只在本地保存） */
 const VOICE_CFG_KEY = "jixi-pinyin-voice-v1";
@@ -2118,20 +2119,20 @@ function speakRealAudio(item){
   playSeq(list);
   return true;
 }
-/* 打对一个字：只读这个字的完整拼音（带调音节），不再逐段拼读，避免声音糊成一片 */
+/* 打完一个字：完整拼读一遍 —— 声母 → 韵母（带调） → 整音节，
+   三段都取自幼小衔接平台同一套真人录音 */
 function speakSpellout(item){
   if(!item) return;
   const word=item.hz||"";
-  if(word.length>1){ speakRealAudio(item); return; }   /* 词语/成语：逐字读，仍是同一音源 */
   const m=(item.target||"").match(/^([a-z]+)([1-5])$/);
-  if(m){
-    const whole=syllAudio(m[1], m[2]);
-    if(whole){
+  if(word.length===1 && m){
+    const clips=syllableClips(m[1], m[2]);
+    if(clips.length){
       __needAutoSpeak=false;
       __autoSpeakPlaying=true;
       clearTimeout(__autoSpeakTimer);
-      __autoSpeakTimer=setTimeout(function(){ __autoSpeakPlaying=false; }, 6000);
-      playSeq([whole]);
+      __autoSpeakTimer=setTimeout(function(){ __autoSpeakPlaying=false; }, 12000);
+      playSeq(clips);
       return;
     }
   }
@@ -3033,7 +3034,7 @@ els.zhToggle.addEventListener("click",()=>{
    两者共用一条媒体通道、可以同时播放、谁也不打断谁。
    以前之所以必须二选一，是因为字母走的是系统语音合成，会被任何一次媒体播放掐断。 */
 if(typeof store.sound==="boolean") settings.sound=store.sound;
-if(typeof store.letterVoice==="boolean") settings.letterVoice=store.letterVoice;
+settings.letterVoice=false;   /* 历史版本可能存过 true，这里强制关掉：按键一律不念字母 */
 /* 一次性修复：换用新的音效引擎后，把被旧状态"永久静音"的音效强制打开一次（用户之后仍可自己关） */
 if(!store.audioV4){
   settings.sound=true;
@@ -3043,7 +3044,7 @@ store.audioMixFixed=true;
 store.sound=settings.sound; store.letterVoice=settings.letterVoice; saveStore();
 function paintAudioToggles(){
   els.soundMini.classList.toggle("on",!!settings.sound);
-  els.letterVoice.classList.toggle("on",!!settings.letterVoice);
+  if(els.letterVoice) els.letterVoice.classList.toggle("on",!!settings.letterVoice);
 }
 function stopLetterVoice(){}
 paintAudioToggles();
@@ -3066,22 +3067,6 @@ els.soundMini.addEventListener("click",()=>{
   store.sound=settings.sound; saveStore();
   paintAudioToggles();
   if(settings.sound) sfx.key();
-});
-els.letterVoice.addEventListener("click",()=>{
-  const next=!settings.letterVoice;
-  if(next){ try{ speak(); }catch(e){} }
-  settings.letterVoice=next;
-  store.letterVoice=settings.letterVoice; saveStore();
-  paintAudioToggles();
-  if(next){
-    pendingLetters=0; lastLetterAt=0;
-    /* 等这个音色的 A 解码好再念（最多等 800ms）：
-       解码好就走 WebAudio，不受"必须有点击手势"的限制；
-       以前固定等 260ms，赶上没解完就退到 <audio>，点开关可能听不到声 */
-    sayLetter("a");
-  }else{
-    stopLetterVoice(); pendingLetters=0;
-  }
 });
 /* 发音速度统一由「音色设置 → 朗读语速」控制（左侧栏的慢读/常速已删） */
 /* 侧栏收起 / 展开 */
