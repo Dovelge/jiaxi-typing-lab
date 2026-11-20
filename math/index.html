@@ -698,6 +698,41 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
   .ag-item em{margin-top:auto;padding-top:4px}
   .ag-item.ag-live{flex-direction:column}
 }
+
+/* ==================== 手机端首屏改造（联系作者前置 / 去星星 / 11+更多） ==================== */
+@media (max-width:640px){
+  /* 手机端星星进度条没有意义，隐藏掉，把位置让给联系作者 */
+  .star-pill{display:none !important}
+  /* 联系作者按钮回到顶栏：紧凑版，直接露出二维码+「联系作者」，引流第一眼可见 */
+  .contact-entry{
+    display:flex !important;
+    height:42px;padding:0 10px 0 5px;gap:6px;
+  }
+  .contact-entry .ce-qr{width:28px;height:28px;flex-basis:28px}
+  .contact-entry .ce-text{display:flex !important}
+  .contact-entry .ce-text b{font-size:12px}
+  .contact-entry .ce-text i{font-size:9px}
+  /* 「更新」按钮收成纯图标，给品牌名和联系作者腾出空间 */
+  .refresh-btn{width:42px;padding:0;justify-content:center;gap:0}
+  .refresh-btn span{display:none}
+  /* 品牌名不被挤压 */
+  .topbar{gap:8px;padding-left:12px;padding-right:12px}
+  .brand-name{font-size:19px}
+  .brand-sub{font-size:10px;letter-spacing:.04em}
+  .brand-sub-en{display:none} /* 手机端只留中文，避免被挤断 */
+  /* 页脚那个重复入口在手机端撤掉，避免「跑到最下面」 */
+  .contact-foot{display:none !important}
+}
+/* 「更多」卡片：和普通玩具卡同款，仅配色区分 */
+.tool-more{
+  background:#FFF8EA;border-style:dashed;border-width:3px;
+  align-items:center;justify-content:center;text-align:center;
+}
+.tool-more .tool-blob{height:88px;width:100%;border:0;background:#FFECC9}
+.tool-more .tool-blob svg{width:60px;height:60px}
+.tool-more .tool-name{font-size:19px}
+.tool-more .more-hint{font-size:12px;font-weight:800;color:#B07A2E;line-height:1.5}
+.tool-more:hover{background:#FFF1D6}
 </style>
 </head>
 <body>
@@ -707,7 +742,7 @@ input[type="range"]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;b
     <div class="brand-mark" aria-hidden="true"><svg viewBox="4 10 56 44" preserveAspectRatio="none"><rect x="9" y="15" width="11" height="9" rx="3" fill="#F2B33D"/><rect x="24" y="15" width="11" height="9" rx="3" fill="#DD5C46"/><rect x="39" y="15" width="16" height="9" rx="3" fill="#2F9C74"/><rect x="9" y="28" width="15" height="9" rx="3" fill="#DD5C46"/><rect x="28" y="28" width="11" height="9" rx="3" fill="#F2B33D"/><rect x="43" y="28" width="12" height="9" rx="3" fill="#DD5C46"/><rect x="9" y="41" width="46" height="9" rx="3" fill="#1F3B33"/></svg></div>
     <div class="brand-text">
       <div class="brand-name">嘉西学堂</div>
-      <div class="brand-sub">数学玩具箱 MATH PLAYBOX</div>
+      <div class="brand-sub">数学玩具箱 <span class="brand-sub-en">MATH PLAYBOX</span></div>
     </div>
   </div>
   <div class="topbar-spacer"></div>
@@ -1420,6 +1455,7 @@ function renderFilters(){
   Array.prototype.forEach.call(filtersEl.querySelectorAll(".chip"), function(b){
     b.addEventListener("click", function(){
       currentFilter = b.dataset.cat;
+      showAllTools = false; // 切分类时回到「先看 11 个」
       renderFilters();
       renderTools(currentFilter);
     });
@@ -1427,10 +1463,15 @@ function renderFilters(){
 }
 
 var STAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.8 L14.9 9.1 L21.8 9.9 L16.7 14.7 L18 21.6 L12 18.2 L6 21.6 L7.3 14.7 L2.2 9.9 L9.1 9.1 Z" fill="#FFC53D" stroke="#26243C" stroke-width="1.8"/></svg>';
+var MORE_SVG = '<svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="11" width="48" height="39" rx="9" fill="#FFD98A" stroke="#26243C" stroke-width="3.5"/><circle cx="23" cy="28" r="4.6" fill="#26243C"/><circle cx="41" cy="28" r="4.6" fill="#26243C"/><path d="M22 39 q10 8 20 0" fill="none" stroke="#26243C" stroke-width="3.5" stroke-linecap="round"/><path d="M50 6v13M43.5 12.5h13" stroke="#E2604C" stroke-width="4.5" stroke-linecap="round"/></svg>';
+var PREVIEW_N = 11;          // 首屏先看 11 件
+var showAllTools = false;    // 是否已点「更多」展开全部
 
 function renderTools(cat){
   var list = (cat === "全部") ? TOOLS : TOOLS.filter(function(t){ return t.cat === cat; });
-  toolsEl.innerHTML = list.map(function(t){
+  var collapsed = (!showAllTools && list.length > PREVIEW_N);
+  var view = collapsed ? list.slice(0, PREVIEW_N) : list;
+  var html = view.map(function(t){
     var lit = stars[t.id] ? "<span class='tool-star'>" + STAR_SVG + "</span>" : "";
     return '<button class="tool" data-id="' + t.id + '">' + lit +
       '<span class="tool-blob" style="background:' + t.tint + '">' + t.icon + '</span>' +
@@ -1439,12 +1480,29 @@ function renderTools(cat){
       '<span class="tool-foot"><span class="tool-dot" style="background:' + t.color + '"></span>' + t.cat + '</span>' +
     '</button>';
   }).join("");
-  Array.prototype.forEach.call(toolsEl.querySelectorAll(".tool"), function(b){
+  if(collapsed){
+    var rest = list.length - PREVIEW_N;
+    html += '<button class="tool tool-more" id="moreToolsBtn" aria-label="展开全部玩具">' +
+      '<span class="tool-blob">' + MORE_SVG + '</span>' +
+      '<span class="tool-name">更多玩具</span>' +
+      '<span class="more-hint">还有 ' + rest + ' 件<br>点我全部展开</span>' +
+    '</button>';
+  }
+  toolsEl.innerHTML = html;
+  Array.prototype.forEach.call(toolsEl.querySelectorAll(".tool[data-id]"), function(b){
     b.addEventListener("click", function(){
       if(location.hash === "#" + b.dataset.id) applyHash();
       else location.hash = b.dataset.id;
     });
   });
+  var moreBtn = el("#moreToolsBtn");
+  if(moreBtn){
+    moreBtn.addEventListener("click", function(){
+      showAllTools = true;
+      try{ Sound.pop(); }catch(e){}
+      renderTools(currentFilter);
+    });
+  }
 }
 
 function refreshStars(){
